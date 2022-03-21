@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.jt_project.R
 import com.example.jt_project.api.models.Data
+import com.example.jt_project.api.models.Owner
 import com.example.jt_project.ui.searchingmodule.DataEnum
 import com.example.jt_project.ui.searchingmodule.SearchingModuleViewModel
 import com.google.android.material.composethemeadapter.MdcTheme
@@ -38,16 +39,14 @@ fun SearchingModuleComposeView(
     openDetails: (String) -> Unit
 ) {
     val postList by viewModel.postList.collectAsState(initial = null)
-
-//    val usersList by
-    var selectedList by remember{ mutableStateOf(DataEnum.POSTS)}
+    var selectedList by remember { mutableStateOf(DataEnum.POSTS) }
 
     postList?.let {
         SearchingModuleCompose(
             data = it,
             openDetails = openDetails,
             selectedList = selectedList,
-            setSelectedList = {selectedList = it}
+            setSelectedList = { selectedList = it }
         )
     }
 }
@@ -135,10 +134,30 @@ fun BackDropScaffoldModule(
 @Preview(showBackground = true)
 @Composable
 fun BackDropScaffoldModulePreview() {
+    val dataList = listOf(
+        Data(
+            id = "id",
+            image = "url",
+            likes = 34,
+            tags = arrayListOf("dog", "holiday"),
+            text = "Text",
+            publishDate = "",
+            owner = Owner(
+                id = "0",
+                title = "title",
+                firstName = "Gary",
+                lastName = "Owen",
+                picture = "url"
+            )
+        )
+    )
+
     MdcTheme {
-//        BackDropScaffoldModule(
-//
-//        )
+        BackDropScaffoldModule(
+            data = dataList,
+            openDetails = {},
+            selectedList = DataEnum.POSTS,
+            setSelectedList = {})
     }
 }
 
@@ -222,7 +241,7 @@ fun BackLayerContent(
     Surface() {
         LazyColumn {
             item {
-              DataEnum.values().forEach { dataEnum ->
+                DataEnum.values().forEach { dataEnum ->
                     val isSelectedProgram = dataEnum == selectedList
                     Box(modifier = Modifier.background(colorResource(id = R.color.primary_700))) {
                         Box(
@@ -279,13 +298,13 @@ fun BackLayerContent(
 @Preview(showBackground = true)
 @Composable
 fun BackLayerContentPreview() {
-//    MdcTheme {
-//        BackLayerContent(
-//            selectedList = DataEnum.COMPANIES,
-//            concealBackLayerContent = { },
-//            setSelectedProgram = {}
-//        )
-//    }
+    MdcTheme {
+        BackLayerContent(
+            selectedList = DataEnum.POSTS,
+            concealBackLayerContent = { },
+            setSelectedList = {}
+        )
+    }
 }
 
 @Composable
@@ -307,34 +326,35 @@ fun FrontLayerContent(
                 }
             }
         }
-//        else {
-//            data.forEach {
-//                item {
-//                    CoffeeModelCompose(
-//                        modifier = Modifier.padding(10.dp),
-//                        coffee = it as Coffee
-//                    )
-//                    Divider(
-//                        thickness = 1.dp, modifier = Modifier.background(
-//                            color = colorResource(
-//                                id = R.color.cadet_grey_200
-//                            )
-//                        )
-//                    )
-//
-//                }
-//            }
-//        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun FrontLayerContentPreview() {
+    val dataList = listOf(
+        Data(
+            id = "id",
+            image = "url",
+            likes = 34,
+            tags = arrayListOf("dog", "holiday"),
+            text = "Text",
+            publishDate = "",
+            owner = Owner(
+                id = "0",
+                title = "title",
+                firstName = "Gary",
+                lastName = "Owen",
+                picture = "url"
+            )
+        )
+    )
+
     MdcTheme {
-//        FrontLayerContent(
-//            openDetails = {}
-//        )
+        FrontLayerContent(
+            data = dataList,
+            selectedList = DataEnum.POSTS,
+            openDetails = {})
     }
 }
 
@@ -411,25 +431,23 @@ fun SinglePostModelCompose(
 @Composable
 fun SingleModelComposePreview() {
     MdcTheme() {
-//        CompanyModelCompose(
-//            company = Company(
-//                id = 0,
-//                uid = "",
-//                business_name = "business name",
-//                suffix = "suffix",
-//                industry = "industry",
-//                catch_phrase = "catch phrase",
-//                buzzword = "buzzword",
-//                bs_company_statement = "bs company statement",
-//                employee_identification_number = "ident number",
-//                duns_number = "duns number",
-//                logo = "https://pigment.github.io/fake-logos/logos/medium/color/7.png",
-//                type = "type",
-//                phone_number = "345-234-344",
-//                full_address = "address",
-//                latitude = 4.0,
-//                longitude = 5.4
-//            )
-//        )
+        val data = Data(
+            id = "id",
+            image = "url",
+            likes = 34,
+            tags = arrayListOf("dog", "holiday"),
+            text = "Text",
+            publishDate = "",
+            owner = Owner(
+                id = "0",
+                title = "title",
+                firstName = "Gary",
+                lastName = "Owen",
+                picture = "url"
+            )
+        )
+
+        SinglePostModelCompose(data = data)
+
     }
 }
