@@ -7,10 +7,22 @@
 
     <fragment
         android:id="@+id/SearchingModule"
-        android:name="com.example.jtproject.ui.searchingmodule.SearchingModuleFragment"
+        android:name="com.example.jt_project.ui.searchingmodule.SearchingModuleFragment"
         android:label="searchingmodule"
         tools:layout="@layout/searching_module_fragment">
+        <action
+            android:id="@+id/action_SearchingModule_to_PostDetails"
+            app:destination="@id/PostDetails" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/PostDetails"
+        android:name="com.example.jt_project.ui.postdetails.PostDetailsFragment"
+        android:label="PostDetails"
+        tools:layout="@layout/post_details_fragment">
+        <argument
+            android:name="id"
+            app:argType="string" />
     </fragment>
 
 </navigation>

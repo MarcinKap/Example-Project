@@ -1,4 +1,4 @@
-package com.example.jtproject.ui.searchingmodule.compose
+package com.example.jt_project.ui.searchingmodule.compose
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
@@ -26,8 +26,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.jt_project.R
 import com.example.jt_project.api.models.Data
-import com.example.jt_project.api.models.PostList
-import com.example.jtproject.ui.searchingmodule.SearchingModuleViewModel
+import com.example.jt_project.ui.searchingmodule.SearchingModuleViewModel
 import com.google.android.material.composethemeadapter.MdcTheme
 import kotlinx.coroutines.launch
 
@@ -60,7 +59,6 @@ fun SearchingModuleCompose(
         )
     }
 }
-
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -208,7 +206,7 @@ fun BackLayerContent(
     concealBackLayerContent: () -> Unit,
     setSelectedProgram: (String) -> Unit,
 ) {
-    val list = arrayListOf<String>("Posts", "AnythingElse")
+    val list = arrayListOf("Posts", "AnythingElse")
 
     Surface() {
         LazyColumn {

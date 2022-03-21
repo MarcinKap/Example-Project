@@ -1,4 +1,4 @@
-package com.example.jtproject.ui.searchingmodule
+package com.example.jt_project.ui.searchingmodule
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
