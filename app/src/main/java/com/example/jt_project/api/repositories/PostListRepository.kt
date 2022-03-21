@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PostListRepository  {
 
-    fun getPostList(): Flow<PostList>
+    suspend fun getPostList(): PostList
 
 
 }

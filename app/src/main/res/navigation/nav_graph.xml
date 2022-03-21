@@ -2,7 +2,15 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/SearchingModule">
 
+    <fragment
+        android:id="@+id/SearchingModule"
+        android:name="com.example.jtproject.ui.searchingmodule.SearchingModuleFragment"
+        android:label="searchingmodule"
+        tools:layout="@layout/searching_module_fragment">
+
+    </fragment>
 
 </navigation>

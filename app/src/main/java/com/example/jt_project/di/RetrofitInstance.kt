@@ -1,6 +1,9 @@
 package com.example.jt_project.di
 
+import android.content.Context
 import com.example.jt_project.api.RetrofitApi
+import com.example.jt_project.api.repositories.PostListRepository
+import com.example.jt_project.api.repositories.PostListRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,15 +20,23 @@ class RetrofitInstance {
 
     val baseURL = "https://dummyapi.io/data/v1/"
 
-    @Singleton
+//    @Singleton
+//    @Provides
+//    fun getRetrofitServiceInstance(retrofit: Retrofit): RetrofitApi {
+//        return retrofit.create(RetrofitApi::class.java)
+//    }
+
     @Provides
-    fun getRetrofitServiceInstance(retrofit: Retrofit): RetrofitApi {
-        return retrofit.create(RetrofitApi::class.java)
+    @Singleton
+    fun providePostListRepository(
+        api: RetrofitApi
+    ): PostListRepository {
+        return PostListRepositoryImpl(api)
     }
 
     @Singleton
     @Provides
-    fun getRetrofitInstance() : Retrofit {
+    fun getRetrofitInstance() : RetrofitApi {
 
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor { chain: Interceptor.Chain ->
@@ -37,9 +48,15 @@ class RetrofitInstance {
         }
         return Retrofit.Builder()
             .baseUrl(baseURL)
-            .client(httpClient.build())
             .addConverterFactory(GsonConverterFactory.create())
-            .build();
+            .client(httpClient.build())
+            .build()
+            .create(RetrofitApi::class.java);
+
+
+
+
+
     }
 
 }

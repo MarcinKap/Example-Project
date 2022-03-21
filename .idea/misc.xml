@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/compose-model-1647867766227.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/ic_trailing.xml" value="0.189" />
+        <entry key="app/src/main/res/drawable-v24/no_photo.xml" value="0.189" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/searching_module_fragment.xml" value="0.37604166666666666" />
       </map>
     </option>
   </component>
