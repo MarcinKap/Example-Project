@@ -208,14 +208,9 @@ fun DropDownChosingProgram(
             overflow = TextOverflow.Ellipsis
         )
         Crossfade(targetState = isRevealedBackLayerContent) { crossFade ->
-            Row(
-                modifier = Modifier
-                    .padding(10.dp)
-                    .size(30.dp)
-                    .clip(CircleShape)
-                    .clickable { changeStateBackLayerContent() },
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
+            IconButton(
+                modifier = Modifier.padding(10.dp).size(30.dp),
+                onClick = { changeStateBackLayerContent()  }
             ) {
                 Icon(
                     painter = if (!crossFade) painterResource(id = R.drawable.ic_trailing) else painterResource(
@@ -446,8 +441,6 @@ fun SingleModelComposePreview() {
                 picture = "url"
             )
         )
-
         SinglePostModelCompose(data = data)
-
     }
 }
