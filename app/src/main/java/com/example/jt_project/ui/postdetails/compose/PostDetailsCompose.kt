@@ -29,7 +29,7 @@ fun PostDetailsComposeView(viewModel: PostDetailsViewModel) {
     val post by viewModel.post.collectAsState(Res.loading())
 
     if (post.status == Status.SUCCESS){
-        PostDetailsCompose(data = post!!.data!!)
+        PostDetailsCompose(data = post.data!!)
     }
 }
 
@@ -90,13 +90,13 @@ fun PostDetailsCompose(data: Data) {
 
         item {
             PostInformation(
-                painter = painterResource(id = R.drawable.baseline_thumb_up_black_36dp),
+                painter = painterResource(id = R.drawable.baseline_thumb_up_black_24dp),
                 information = data.likes.toString()
             )
         }
         item {
             PostInformation(
-                painter = painterResource(id = R.drawable.baseline_calendar_today_black_36dp),
+                painter = painterResource(id = R.drawable.baseline_calendar_today_black_24dp),
                 information = data.publishDate
             )
         }
@@ -131,7 +131,7 @@ fun PostInformation(
 fun PostInformationPreview() {
     MdcTheme() {
         PostInformation(
-            painter = painterResource(id = R.drawable.baseline_thumb_up_black_36dp),
+            painter = painterResource(id = R.drawable.baseline_thumb_up_black_24dp),
             information = "Business"
         )
     }
