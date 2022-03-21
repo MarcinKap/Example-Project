@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.jt_project.R
 import com.example.jt_project.api.models.Data
+import com.example.jt_project.ui.searchingmodule.DataEnum
 import com.example.jt_project.ui.searchingmodule.SearchingModuleViewModel
 import com.google.android.material.composethemeadapter.MdcTheme
 import kotlinx.coroutines.launch
@@ -38,10 +39,15 @@ fun SearchingModuleComposeView(
 ) {
     val postList by viewModel.postList.collectAsState(initial = null)
 
+//    val usersList by
+    var selectedList by remember{ mutableStateOf(DataEnum.POSTS)}
+
     postList?.let {
         SearchingModuleCompose(
             data = it,
-            openDetails = openDetails
+            openDetails = openDetails,
+            selectedList = selectedList,
+            setSelectedList = {selectedList = it}
         )
     }
 }
@@ -49,13 +55,17 @@ fun SearchingModuleComposeView(
 @Composable
 fun SearchingModuleCompose(
     data: List<Any>,
-    openDetails: (String) -> Unit
+    openDetails: (String) -> Unit,
+    selectedList: DataEnum,
+    setSelectedList: (DataEnum) -> Unit
 ) {
     Surface() {
         BackDropScaffoldModule(
             modifier = Modifier,
             data = data,
-            openDetails = openDetails
+            openDetails = openDetails,
+            selectedList = selectedList,
+            setSelectedList = setSelectedList
         )
     }
 }
@@ -65,7 +75,9 @@ fun SearchingModuleCompose(
 fun BackDropScaffoldModule(
     modifier: Modifier = Modifier,
     data: List<Any>,
-    openDetails: (String) -> Unit
+    openDetails: (String) -> Unit,
+    selectedList: DataEnum,
+    setSelectedList: (DataEnum) -> Unit
 ) {
     val backDropState = rememberBackdropScaffoldState(initialValue = BackdropValue.Concealed)
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
@@ -97,21 +109,21 @@ fun BackDropScaffoldModule(
                     }
                 },
                 isRevealedBackLayerContent = isDropDownMenuExpanded,
-                selectedList = "Posts"
+                selectedList = selectedList
             )
         },
         backLayerContent = {
             val coroutineScope = rememberCoroutineScope()
             BackLayerContent(
-                selectedList = "Posts",
+                selectedList = selectedList,
                 concealBackLayerContent = { coroutineScope.launch { backDropState.conceal() } },
-                setSelectedProgram = {  }
+                setSelectedList = setSelectedList
             )
         },
         frontLayerContent = {
             FrontLayerContent(
                 data = data,
-                selectedList = "Posts",
+                selectedList = selectedList,
                 openDetails = openDetails
             )
         },
@@ -152,7 +164,7 @@ fun setDropDownMenuState(
 
 @Composable
 fun DropDownChosingProgram(
-    selectedList: String,
+    selectedList: DataEnum,
     changeStateBackLayerContent: () -> Unit,
     isRevealedBackLayerContent: Boolean,
 ) {
@@ -168,7 +180,7 @@ fun DropDownChosingProgram(
                 .padding(vertical = 16.dp, horizontal = 8.dp)
                 .wrapContentHeight()
                 .weight(1f),
-            text = if (isRevealedBackLayerContent) "Select list" else selectedList,
+            text = if (isRevealedBackLayerContent) "Select list".uppercase() else selectedList.name,
             fontSize = 18.sp,
             textAlign = TextAlign.Start,
             fontWeight = FontWeight.Medium,
@@ -202,17 +214,16 @@ fun DropDownChosingProgram(
 @ExperimentalMaterialApi
 @Composable
 fun BackLayerContent(
-    selectedList: String,
+    selectedList: DataEnum,
     concealBackLayerContent: () -> Unit,
-    setSelectedProgram: (String) -> Unit,
+    setSelectedList: (DataEnum) -> Unit,
 ) {
-    val list = arrayListOf("Posts", "AnythingElse")
 
     Surface() {
         LazyColumn {
             item {
-              list.forEach { name ->
-                    val isSelectedProgram = name == selectedList
+              DataEnum.values().forEach { dataEnum ->
+                    val isSelectedProgram = dataEnum == selectedList
                     Box(modifier = Modifier.background(colorResource(id = R.color.primary_700))) {
                         Box(
                             modifier = Modifier
@@ -226,7 +237,7 @@ fun BackLayerContent(
                                     )
                                 )
                                 .clickable {
-                                    setSelectedProgram(name)
+                                    setSelectedList(dataEnum)
                                     concealBackLayerContent()
                                 }
                         )
@@ -239,7 +250,7 @@ fun BackLayerContent(
                             ) {
                                 Text(
                                     modifier = Modifier.weight(1f),
-                                    text = name,
+                                    text = dataEnum.name,
                                     color = if (isSelectedProgram) colorResource(id = R.color.white) else colorResource(
                                         id = R.color.primary_100
                                     ),
@@ -280,14 +291,14 @@ fun BackLayerContentPreview() {
 @Composable
 fun FrontLayerContent(
     data: List<Any>,
-    selectedList: String,
+    selectedList: DataEnum,
     openDetails: (String) -> Unit
 ) {
     LazyColumn() {
-//        if (selectedList == "Posts") {
+        if (selectedList == DataEnum.POSTS) {
             (data as List<Data>).forEach {
                 item {
-                    CompanyModelCompose(
+                    SinglePostModelCompose(
                         data = it,
                         modifier = Modifier
                             .clickable { openDetails(it.id) }
@@ -295,7 +306,7 @@ fun FrontLayerContent(
                     )
                 }
             }
-//        }
+        }
 //        else {
 //            data.forEach {
 //                item {
@@ -329,7 +340,7 @@ fun FrontLayerContentPreview() {
 
 
 @Composable
-fun CompanyModelCompose(
+fun SinglePostModelCompose(
     modifier: Modifier = Modifier,
     data: Data
 ) {
@@ -398,7 +409,7 @@ fun CompanyModelCompose(
 
 @Preview(showBackground = true)
 @Composable
-fun CompanyModelComposePreview() {
+fun SingleModelComposePreview() {
     MdcTheme() {
 //        CompanyModelCompose(
 //            company = Company(
