@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -18,7 +17,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -27,8 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.jt_project.R
-import com.example.jt_project.api.models.Data
+import com.example.jt_project.api.Status
 import com.example.jt_project.api.models.Owner
+import com.example.jt_project.api.models.Post
 import com.example.jt_project.ui.searchingmodule.DataEnum
 import com.example.jt_project.ui.searchingmodule.SearchingModuleViewModel
 import com.google.android.material.composethemeadapter.MdcTheme
@@ -43,9 +42,9 @@ fun SearchingModuleComposeView(
     val postList by viewModel.postList.collectAsState(initial = null)
     var selectedList by remember { mutableStateOf(DataEnum.POSTS) }
 
-    postList?.let {
+    if (postList?.status == Status.SUCCESS) {
         SearchingModuleCompose(
-            data = it,
+            data = postList!!.data!!.posts,
             openDetails = openDetails,
             selectedList = selectedList,
             setSelectedList = { selectedList = it }
@@ -137,7 +136,7 @@ fun BackDropScaffoldModule(
 @Composable
 fun BackDropScaffoldModulePreview() {
     val dataList = listOf(
-        Data(
+        Post(
             id = "id",
             image = "url",
             likes = 34,
@@ -211,8 +210,11 @@ fun DropDownChosingProgram(
         )
         Crossfade(targetState = isRevealedBackLayerContent) { crossFade ->
             IconButton(
-                modifier = Modifier.padding(10.dp).size(30.dp).testTag("dropDownButton"),
-                onClick = { changeStateBackLayerContent()  }
+                modifier = Modifier
+                    .padding(10.dp)
+                    .size(30.dp)
+                    .testTag("dropDownButton"),
+                onClick = { changeStateBackLayerContent() }
             ) {
                 Icon(
                     painter = if (!crossFade) painterResource(id = R.drawable.ic_trailing) else painterResource(
@@ -312,10 +314,10 @@ fun FrontLayerContent(
 ) {
     LazyColumn() {
         if (selectedList == DataEnum.POSTS) {
-            (data as List<Data>).forEach {
+            (data as List<Post>).forEach {
                 item {
                     SinglePostModelCompose(
-                        data = it,
+                        post = it,
                         modifier = Modifier
                             .clickable { openDetails(it.id) }
                             .padding(start = 10.dp, end = 10.dp, top = 10.dp),
@@ -330,7 +332,7 @@ fun FrontLayerContent(
 @Composable
 fun FrontLayerContentPreview() {
     val dataList = listOf(
-        Data(
+        Post(
             id = "id",
             image = "url",
             likes = 34,
@@ -359,7 +361,7 @@ fun FrontLayerContentPreview() {
 @Composable
 fun SinglePostModelCompose(
     modifier: Modifier = Modifier,
-    data: Data
+    post: Post
 ) {
     Box(modifier = modifier) {
         Row(
@@ -383,7 +385,7 @@ fun SinglePostModelCompose(
                     modifier = Modifier,
                     contentScale = ContentScale.Fit,
                     painter = rememberImagePainter(
-                        data = data.image,
+                        data = post.image,
                         builder = {
                             placeholder(R.drawable.no_photo)
                         }
@@ -400,14 +402,14 @@ fun SinglePostModelCompose(
             ) {
                 Column() {
                     Text(
-                        text = "${data.owner.firstName} ${data.owner.lastName}",
+                        text = "${post.owner.firstName} ${post.owner.lastName}",
                         style = MaterialTheme.typography.h6,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
                         modifier = Modifier.padding(vertical = 8.dp),
-                        text = data.text,
+                        text = post.text,
                         style = MaterialTheme.typography.body2
                     )
                 }
@@ -428,7 +430,7 @@ fun SinglePostModelCompose(
 @Composable
 fun SingleModelComposePreview() {
     MdcTheme() {
-        val data = Data(
+        val data = Post(
             id = "id",
             image = "url",
             likes = 34,
@@ -443,6 +445,6 @@ fun SingleModelComposePreview() {
                 picture = "url"
             )
         )
-        SinglePostModelCompose(data = data)
+        SinglePostModelCompose(post = data)
     }
 }

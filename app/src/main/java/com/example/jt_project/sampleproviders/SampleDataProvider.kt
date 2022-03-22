@@ -1,12 +1,12 @@
 package com.example.jt_project.sampleproviders
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.example.jt_project.api.models.Data
+import com.example.jt_project.api.models.Post
 import com.example.jt_project.api.models.Owner
 
-class SampleDataProvider: PreviewParameterProvider<Data> {
+class SampleDataProvider: PreviewParameterProvider<Post> {
     override val values = sequenceOf(
-        Data(
+        Post(
             id = "id",
             image = "url",
             likes = 34,
@@ -21,7 +21,7 @@ class SampleDataProvider: PreviewParameterProvider<Data> {
                 picture = "url"
             )
         ),
-        Data(
+        Post(
             id = "id",
             image = "url",
             likes = 33,

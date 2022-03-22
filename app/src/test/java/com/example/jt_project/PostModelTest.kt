@@ -1,18 +1,17 @@
 package com.example.jt_project
 
-import com.example.jt_project.api.models.Data
+import com.example.jt_project.api.models.Post
 import com.example.jt_project.api.models.Owner
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.BlockJUnit4ClassRunner
 
 @RunWith(BlockJUnit4ClassRunner::class)
-class DataModelTest {
+class PostModelTest {
 
     @Test
     fun date_parse() {
-        val data = Data(
+        val data = Post(
             id = "id",
             image = "url",
             likes = 34,

@@ -3,7 +3,7 @@ package com.example.jt_project.api.models
 import com.google.gson.annotations.SerializedName
 import org.joda.time.LocalDateTime
 
-data class Data(
+data class Post(
     @SerializedName("id")
     val id: String,
     @SerializedName("image")

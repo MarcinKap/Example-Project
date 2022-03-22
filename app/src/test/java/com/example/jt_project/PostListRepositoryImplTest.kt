@@ -2,7 +2,7 @@ package com.example.jt_project
 
 import com.example.jt_project.api.RetrofitApi
 import com.example.jt_project.api.Status
-import com.example.jt_project.api.models.Data
+import com.example.jt_project.api.models.Post
 import com.example.jt_project.api.models.Owner
 import com.example.jt_project.api.repositories.PostListRepositoryImpl
 import io.mockk.coEvery
@@ -27,7 +27,7 @@ class PostListRepositoryImplTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun getPost_success() = testScope.runTest {
-        val data = Data(
+        val data = Post(
             id = "id",
             image = "url",
             likes = 34,

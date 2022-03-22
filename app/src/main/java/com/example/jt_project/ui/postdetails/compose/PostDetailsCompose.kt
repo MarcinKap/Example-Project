@@ -23,22 +23,21 @@ import com.example.jt_project.ui.postdetails.PostDetailsViewModel
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.example.jt_project.R
 import com.example.jt_project.api.Res
-import com.example.jt_project.api.models.Data
+import com.example.jt_project.api.models.Post
 import com.example.jt_project.sampleproviders.SampleDataProvider
-import org.joda.time.LocalDateTime
 
 @Composable
 fun PostDetailsComposeView(viewModel: PostDetailsViewModel) {
     val post by viewModel.post.collectAsState(Res.loading())
 
     if (post.status == Status.SUCCESS){
-        PostDetailsCompose(data = post.data!!)
+        PostDetailsCompose(post = post.data!!)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PostDetailsCompose(@PreviewParameter(SampleDataProvider::class, 1) data: Data) {
+fun PostDetailsCompose(@PreviewParameter(SampleDataProvider::class, 1) post: Post) {
     LazyColumn{
         item {
             Box(
@@ -52,7 +51,7 @@ fun PostDetailsCompose(@PreviewParameter(SampleDataProvider::class, 1) data: Dat
                     modifier = Modifier,
                     contentScale = ContentScale.Fit,
                     painter = rememberImagePainter(
-                        data = data.image,
+                        data = post.image,
                         builder = {
                             error(R.drawable.no_photo)
                         }
@@ -71,7 +70,7 @@ fun PostDetailsCompose(@PreviewParameter(SampleDataProvider::class, 1) data: Dat
                     style = MaterialTheme.typography.h6,
                     modifier = Modifier
                         .padding(horizontal = 16.dp),
-                    text = "${data.owner.firstName} ${data.owner.lastName}"
+                    text = "${post.owner.firstName} ${post.owner.lastName}"
                 )
             }
         }
@@ -85,7 +84,7 @@ fun PostDetailsCompose(@PreviewParameter(SampleDataProvider::class, 1) data: Dat
                     style = MaterialTheme.typography.body2,
                     modifier = Modifier
                         .padding(horizontal = 16.dp),
-                    text = data.text
+                    text = post.text
                 )
             }
         }
@@ -93,13 +92,13 @@ fun PostDetailsCompose(@PreviewParameter(SampleDataProvider::class, 1) data: Dat
         item {
             PostInformation(
                 painter = painterResource(id = R.drawable.baseline_thumb_up_black_24dp),
-                information = data.likes.toString()
+                information = post.likes.toString()
             )
         }
         item {
             PostInformation(
                 painter = painterResource(id = R.drawable.baseline_calendar_today_black_24dp),
-                information = data.date.toString("HH:mm dd.MM.yyyy")
+                information = post.date.toString("HH:mm dd.MM.yyyy")
             )
         }
     }

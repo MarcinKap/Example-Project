@@ -2,7 +2,8 @@ package com.example.jt_project.ui.searchingmodule
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.jt_project.api.models.Data
+import com.example.jt_project.api.Res
+import com.example.jt_project.api.models.Post
 import com.example.jt_project.api.models.PostList
 import com.example.jt_project.api.repositories.PostListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,13 +18,13 @@ class SearchingModuleViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private var _postList = MutableStateFlow<List<Data>>(emptyList())
-    val postList: Flow<List<Data>> = _postList
+    private var _postList = MutableStateFlow<Res<PostList>>(Res.loading())
+    val postList: Flow<Res<PostList>> = _postList
 
 
     init {
         viewModelScope.launch {
-            _postList.tryEmit(postListRepository.getPostList().data)
+            _postList.tryEmit(postListRepository.getPostList())
         }
     }
 

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class PostList (
     @SerializedName("data")
-    val data : List<Data>,
+    val posts : List<Post>,
     @SerializedName("total")
     val total : Int,
     @SerializedName("page")

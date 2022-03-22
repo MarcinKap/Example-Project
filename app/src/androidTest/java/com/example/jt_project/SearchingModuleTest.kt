@@ -1,12 +1,8 @@
 package com.example.jt_project
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import com.example.jt_project.api.models.Data
+import com.example.jt_project.api.models.Post
 import com.example.jt_project.api.models.Owner
 import com.example.jt_project.ui.searchingmodule.DataEnum
 import com.example.jt_project.ui.searchingmodule.compose.SearchingModuleCompose
@@ -101,7 +97,7 @@ class SearchingModuleTest {
 
     @Test
     fun SinglePostModelCompose_DisplayName() {
-        val data = Data(
+        val data = Post(
             id = "id",
             image = "url",
             likes = 34,
@@ -117,14 +113,14 @@ class SearchingModuleTest {
             )
         )
         composeTestRule.setContent {
-            SinglePostModelCompose(data = data)
+            SinglePostModelCompose(post = data)
         }
         composeTestRule.onNodeWithText("${data.owner.firstName} ${data.owner.lastName}").assertIsDisplayed()
     }
 
     @Test
     fun SearchingModuleCompose_DisplayBackLayerContentAfterClickOnButtonAndHideAfter2ndClick() {
-        val data = Data(
+        val data = Post(
             id = "id",
             image = "url",
             likes = 34,
@@ -162,7 +158,7 @@ class SearchingModuleTest {
 
     @Test
     fun SearchingModuleCompose_HideBackLayerContentAfterClickOnList() {
-        val data = Data(
+        val data = Post(
             id = "id",
             image = "url",
             likes = 34,
