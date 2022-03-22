@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +20,7 @@ class SearchingModuleViewModel @Inject constructor(
 
 
     private var _postList = MutableStateFlow<Res<PostList>>(Res.loading())
-    val postList: Flow<Res<PostList>> = _postList
+    val postList: StateFlow<Res<PostList>> = _postList
 
 
     init {
