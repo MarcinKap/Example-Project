@@ -11,7 +11,7 @@ class PostListRepositoryImpl @Inject constructor(
     private val retrofitApi: RetrofitApi,
 ) : PostListRepository {
 
-    override fun getPostList(): Res<PostList> {
+    override suspend fun getPostList(): Res<PostList> {
         try {
             return Res.success(retrofitApi.getPostList())
         }catch (ex: Exception){

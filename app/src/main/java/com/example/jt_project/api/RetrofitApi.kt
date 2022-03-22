@@ -10,7 +10,7 @@ import retrofit2.http.Path
 interface RetrofitApi {
 
     @GET("post?limit=10")
-    fun getPostList(): PostList
+    suspend fun getPostList(): PostList
 
     @GET("post/{id}")
     suspend fun getPostByPostId(@Path("id") id: String): Post

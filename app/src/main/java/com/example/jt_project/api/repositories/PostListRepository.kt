@@ -6,7 +6,7 @@ import com.example.jt_project.api.models.PostList
 
 interface PostListRepository  {
 
-    fun getPostList(): Res<PostList>
+    suspend fun getPostList(): Res<PostList>
     suspend fun getPostByPostId(id: String): Res<Post>
 
 
