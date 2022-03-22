@@ -1,6 +1,7 @@
 package com.example.jt_project.api.models
 
 import com.google.gson.annotations.SerializedName
+import org.joda.time.LocalDateTime
 
 data class Data(
     @SerializedName("id")
@@ -17,4 +18,8 @@ data class Data(
     val publishDate: String,
     @SerializedName("owner")
     val owner: Owner
-)
+){
+    val date
+        get() =  LocalDateTime.parse(publishDate, org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZZ"))
+
+}

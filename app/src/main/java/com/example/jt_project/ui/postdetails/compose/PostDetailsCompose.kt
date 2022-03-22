@@ -23,6 +23,7 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import com.example.jt_project.R
 import com.example.jt_project.api.Res
 import com.example.jt_project.api.models.Data
+import org.joda.time.LocalDateTime
 
 @Composable
 fun PostDetailsComposeView(viewModel: PostDetailsViewModel) {
@@ -32,8 +33,6 @@ fun PostDetailsComposeView(viewModel: PostDetailsViewModel) {
         PostDetailsCompose(data = post.data!!)
     }
 }
-
-
 
 @Composable
 fun PostDetailsCompose(data: Data) {
@@ -95,9 +94,11 @@ fun PostDetailsCompose(data: Data) {
             )
         }
         item {
+
+
             PostInformation(
                 painter = painterResource(id = R.drawable.baseline_calendar_today_black_24dp),
-                information = data.publishDate
+                information = data.date.toString("HH:mm dd.MM.yyyy")
             )
         }
     }
