@@ -5,6 +5,7 @@ The application allows you to download a list of posts from the server and, afte
 # Development opportunities 
 The project uses BackdropScaffold with the possibility to choose a list of posts or users. Only the post list has been implemented due to the limited time of the task. 
 In the case of further work on the project, it would be necessary to introduce another preview to the functions written in compose, add further unit (for example, tests 2nd viewmodel) and integration tests.
+It also requires handling the case when there is no internet, then there is no error and the application does not turn off, but there is a white screen without information about the error in the connection.
 
 # Branches
 1. Master.  
