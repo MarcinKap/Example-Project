@@ -12,7 +12,7 @@ class SampleDataProvider: PreviewParameterProvider<Data> {
             likes = 34,
             tags = arrayListOf("dog", "holiday"),
             text="Text",
-            publishDate = "",
+            publishDate = "2020-05-24T07:44:17.738Z",
             owner = Owner(
                 id = "0",
                 title = "title",
@@ -27,7 +27,7 @@ class SampleDataProvider: PreviewParameterProvider<Data> {
             likes = 33,
             tags = arrayListOf("dog2", "holiday2"),
             text="Text",
-            publishDate = "",
+            publishDate = "2020-05-24T07:44:17.738Z",
             owner = Owner(
                 id = "0",
                 title = "title",

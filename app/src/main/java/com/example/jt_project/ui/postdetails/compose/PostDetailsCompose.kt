@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.jt_project.api.Status
@@ -23,6 +24,7 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import com.example.jt_project.R
 import com.example.jt_project.api.Res
 import com.example.jt_project.api.models.Data
+import com.example.jt_project.sampleproviders.SampleDataProvider
 import org.joda.time.LocalDateTime
 
 @Composable
@@ -34,8 +36,9 @@ fun PostDetailsComposeView(viewModel: PostDetailsViewModel) {
     }
 }
 
+@Preview(showBackground = true)
 @Composable
-fun PostDetailsCompose(data: Data) {
+fun PostDetailsCompose(@PreviewParameter(SampleDataProvider::class, 1) data: Data) {
     LazyColumn{
         item {
             Box(
@@ -94,8 +97,6 @@ fun PostDetailsCompose(data: Data) {
             )
         }
         item {
-
-
             PostInformation(
                 painter = painterResource(id = R.drawable.baseline_calendar_today_black_24dp),
                 information = data.date.toString("HH:mm dd.MM.yyyy")
