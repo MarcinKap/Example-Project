@@ -2,6 +2,7 @@ package com.example.jt_project
 
 import com.example.jt_project.api.models.Post
 import com.example.jt_project.api.models.Owner
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.BlockJUnit4ClassRunner
@@ -27,7 +28,7 @@ class PostModelTest {
             )
         )
 
-        assert(data.date.toString("HH:mm:ss.SSS dd.MM.yyyy") == "07:44:17.738 24.05.2020")
+        Assert.assertTrue(data.date.toString("HH:mm:ss.SSS dd.MM.yyyy") == "07:44:17.738 24.05.2020")
     }
 
 }

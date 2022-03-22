@@ -11,6 +11,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.BlockJUnit4ClassRunner
@@ -48,8 +49,8 @@ class PostListRepositoryImplTest {
 
         val repo = PostListRepositoryImpl(retrofitApi)
         val response = repo.getPostByPostId("id")
-        assert(response.status == Status.SUCCESS)
-        assert(response.data?.id == "id")
+        Assert.assertTrue(response.status == Status.SUCCESS)
+        Assert.assertTrue(response.data?.id == "id")
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -61,6 +62,6 @@ class PostListRepositoryImplTest {
 
         val repo = PostListRepositoryImpl(retrofitApi)
         val response = repo.getPostByPostId("id")
-        assert(response.status == Status.ERROR)
+        Assert.assertTrue(response.status == Status.ERROR)
     }
 }

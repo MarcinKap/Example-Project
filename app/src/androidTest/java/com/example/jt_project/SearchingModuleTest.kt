@@ -8,6 +8,7 @@ import com.example.jt_project.ui.searchingmodule.DataEnum
 import com.example.jt_project.ui.searchingmodule.compose.SearchingModuleCompose
 import com.example.jt_project.ui.searchingmodule.compose.SinglePostModelCompose
 import com.example.jt_project.ui.searchingmodule.compose.setDropDownMenuState
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -25,7 +26,7 @@ class SearchingModuleTest {
 
     @Test
     fun setDropDownMenuState_assertFalseWhenBackDropStateIsInHiding() {
-        assert(
+        Assert.assertTrue(
             !setDropDownMenuState(
                 isConcealed = false,
                 isRevealed = true,
@@ -37,7 +38,7 @@ class SearchingModuleTest {
 
     @Test
     fun setDropDownMenuState_assertFalseWhenBackDropStateIsInHidden() {
-        assert(
+        Assert.assertTrue(
             !setDropDownMenuState(
                 isConcealed = true,
                 isRevealed = false,
@@ -49,7 +50,7 @@ class SearchingModuleTest {
 
     @Test
     fun assertFalseWhenBackDropStateIsInHidden2() {
-        assert(
+        Assert.assertTrue(
             !setDropDownMenuState(
                 isConcealed = true,
                 isRevealed = false,
@@ -61,7 +62,7 @@ class SearchingModuleTest {
 
     @Test
     fun setDropDownMenuState_assertWhenBackDropStateIsInRevealing() {
-        assert(
+        Assert.assertTrue(
             setDropDownMenuState(
                 isConcealed = true,
                 isRevealed = false,
@@ -73,7 +74,7 @@ class SearchingModuleTest {
 
     @Test
     fun setDropDownMenuState_assertWhenBackDropStateIsInRevealing2() {
-        assert(
+        Assert.assertTrue(
             setDropDownMenuState(
                 isConcealed = true,
                 isRevealed = false,
