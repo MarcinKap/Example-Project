@@ -44,7 +44,7 @@ fun SearchingModuleComposeView(
 
     if (postList?.status == Status.SUCCESS) {
         SearchingModuleCompose(
-            data = postList!!.data!!.posts,
+            dataList = postList!!.data!!.posts,
             openDetails = openDetails,
             selectedList = selectedList,
             setSelectedList = { selectedList = it }
@@ -54,7 +54,7 @@ fun SearchingModuleComposeView(
 
 @Composable
 fun SearchingModuleCompose(
-    data: List<Any>,
+    dataList: List<Any>,
     openDetails: (String) -> Unit,
     selectedList: DataEnum,
     setSelectedList: (DataEnum) -> Unit
@@ -62,7 +62,7 @@ fun SearchingModuleCompose(
     Surface() {
         BackDropScaffoldModule(
             modifier = Modifier,
-            data = data,
+            dataList = dataList,
             openDetails = openDetails,
             selectedList = selectedList,
             setSelectedList = setSelectedList
@@ -74,7 +74,7 @@ fun SearchingModuleCompose(
 @Composable
 fun BackDropScaffoldModule(
     modifier: Modifier = Modifier,
-    data: List<Any>,
+    dataList: List<Any>,
     openDetails: (String) -> Unit,
     selectedList: DataEnum,
     setSelectedList: (DataEnum) -> Unit
@@ -122,7 +122,7 @@ fun BackDropScaffoldModule(
         },
         frontLayerContent = {
             FrontLayerContent(
-                data = data,
+                dataList = dataList,
                 selectedList = selectedList,
                 openDetails = openDetails
             )
@@ -155,7 +155,7 @@ fun BackDropScaffoldModulePreview() {
 
     MdcTheme {
         BackDropScaffoldModule(
-            data = dataList,
+            dataList = dataList,
             openDetails = {},
             selectedList = DataEnum.POSTS,
             setSelectedList = {})
@@ -308,13 +308,13 @@ fun BackLayerContentPreview() {
 
 @Composable
 fun FrontLayerContent(
-    data: List<Any>,
+    dataList: List<Any>,
     selectedList: DataEnum,
     openDetails: (String) -> Unit
 ) {
     LazyColumn() {
         if (selectedList == DataEnum.POSTS) {
-            (data as List<Post>).forEach {
+            (dataList as List<Post>).forEach {
                 item {
                     SinglePostModelCompose(
                         post = it,
@@ -351,7 +351,7 @@ fun FrontLayerContentPreview() {
 
     MdcTheme {
         FrontLayerContent(
-            data = dataList,
+            dataList = dataList,
             selectedList = DataEnum.POSTS,
             openDetails = {})
     }

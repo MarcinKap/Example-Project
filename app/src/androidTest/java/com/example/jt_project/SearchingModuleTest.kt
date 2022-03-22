@@ -141,7 +141,7 @@ class SearchingModuleTest {
 
         composeTestRule.setContent {
             SearchingModuleCompose(
-                data = listOf(data),
+                dataList = listOf(data),
                 openDetails = {},
                 selectedList = selectedList,
                 setSelectedList = {selectedList = it}
@@ -176,7 +176,7 @@ class SearchingModuleTest {
         var selectedList = DataEnum.POSTS
         composeTestRule.setContent {
             SearchingModuleCompose(
-                data = listOf(data),
+                dataList = listOf(data),
                 openDetails = {},
                 selectedList = selectedList,
                 setSelectedList = {selectedList = it}
