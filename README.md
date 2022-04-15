@@ -1,4 +1,4 @@
-# JT-Project
+# Example project
 
 The application allows you to download a list of posts from the server and, after clicking on a given post, go to the next screen with detailed information on it.  
 
