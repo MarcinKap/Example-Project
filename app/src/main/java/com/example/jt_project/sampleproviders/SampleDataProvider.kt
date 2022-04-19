@@ -1,8 +1,8 @@
 package com.example.jt_project.sampleproviders
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.example.jt_project.api.models.Post
-import com.example.jt_project.api.models.Owner
+import com.example.jt_project.models.Post
+import com.example.jt_project.models.Owner
 
 class SampleDataProvider: PreviewParameterProvider<Post> {
     override val values = sequenceOf(

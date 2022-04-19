@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.jt_project.R
 import com.example.jt_project.api.Status
-import com.example.jt_project.api.models.Owner
-import com.example.jt_project.api.models.Post
+import com.example.jt_project.models.Owner
+import com.example.jt_project.models.Post
 import com.example.jt_project.ui.searchingmodule.DataEnum
 import com.example.jt_project.ui.searchingmodule.SearchingModuleViewModel
 import com.google.android.material.composethemeadapter.MdcTheme
@@ -39,7 +39,7 @@ fun SearchingModuleComposeView(
     viewModel: SearchingModuleViewModel,
     openDetails: (String) -> Unit
 ) {
-    val postList by viewModel.postList.collectAsState(initial = null)
+    val postList by viewModel.postList.collectAsState()
     var selectedList by remember { mutableStateOf(DataEnum.POSTS) }
 
     if (postList?.status == Status.SUCCESS) {

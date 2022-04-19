@@ -2,8 +2,8 @@ package com.example.jt_project
 
 import com.example.jt_project.api.RetrofitApi
 import com.example.jt_project.api.Status
-import com.example.jt_project.api.models.Post
-import com.example.jt_project.api.models.Owner
+import com.example.jt_project.models.Post
+import com.example.jt_project.models.Owner
 import com.example.jt_project.api.repositories.PostListRepositoryImpl
 import io.mockk.coEvery
 import io.mockk.mockk

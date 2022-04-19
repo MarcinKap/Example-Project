@@ -124,4 +124,6 @@ dependencies {
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
     testImplementation 'io.mockk:mockk:1.12.3'
 
+    implementation 'com.github.MarcinKap:Column-Chart-Compose:1.0'
+
 }

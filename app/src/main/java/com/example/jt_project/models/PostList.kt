@@ -1,4 +1,4 @@
-package com.example.jt_project.api.models
+package com.example.jt_project.models
 
 import com.google.gson.annotations.SerializedName
 

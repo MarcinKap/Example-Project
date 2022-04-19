@@ -1,15 +1,13 @@
 package com.example.jt_project
 
-import androidx.lifecycle.SavedStateHandle
 import com.example.jt_project.api.Res
 import com.example.jt_project.api.Status
-import com.example.jt_project.api.models.Owner
-import com.example.jt_project.api.models.Post
-import com.example.jt_project.api.models.PostList
+import com.example.jt_project.models.Owner
+import com.example.jt_project.models.Post
+import com.example.jt_project.models.PostList
 import com.example.jt_project.api.repositories.PostListRepositoryImpl
 import com.example.jt_project.ui.searchingmodule.SearchingModuleViewModel
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

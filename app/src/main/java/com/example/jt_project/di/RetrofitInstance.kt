@@ -20,12 +20,6 @@ class RetrofitInstance {
 
     val baseURL = "https://dummyapi.io/data/v1/"
 
-//    @Singleton
-//    @Provides
-//    fun getRetrofitServiceInstance(retrofit: Retrofit): RetrofitApi {
-//        return retrofit.create(RetrofitApi::class.java)
-//    }
-
     @Provides
     @Singleton
     fun providePostListRepository(
@@ -52,11 +46,6 @@ class RetrofitInstance {
             .client(httpClient.build())
             .build()
             .create(RetrofitApi::class.java);
-
-
-
-
-
     }
 
 }

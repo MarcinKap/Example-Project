@@ -3,12 +3,10 @@ package com.example.jt_project.ui.searchingmodule
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.jt_project.api.Res
-import com.example.jt_project.api.models.Post
-import com.example.jt_project.api.models.PostList
+import com.example.jt_project.models.PostList
 import com.example.jt_project.api.repositories.PostListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject

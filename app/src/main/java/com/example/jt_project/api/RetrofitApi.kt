@@ -1,8 +1,8 @@
 package com.example.jt_project.api
 
 import androidx.annotation.Keep
-import com.example.jt_project.api.models.Post
-import com.example.jt_project.api.models.PostList
+import com.example.jt_project.models.Post
+import com.example.jt_project.models.PostList
 import retrofit2.http.GET
 import retrofit2.http.Path
 

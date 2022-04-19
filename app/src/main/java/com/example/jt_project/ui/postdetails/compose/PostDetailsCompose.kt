@@ -23,7 +23,7 @@ import com.example.jt_project.ui.postdetails.PostDetailsViewModel
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.example.jt_project.R
 import com.example.jt_project.api.Res
-import com.example.jt_project.api.models.Post
+import com.example.jt_project.models.Post
 import com.example.jt_project.sampleproviders.SampleDataProvider
 
 @Composable

@@ -1,7 +1,7 @@
 package com.example.jt_project
 
-import com.example.jt_project.api.models.Post
-import com.example.jt_project.api.models.Owner
+import com.example.jt_project.models.Post
+import com.example.jt_project.models.Owner
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

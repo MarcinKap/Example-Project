@@ -2,8 +2,9 @@ package com.example.jt_project
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import com.example.jt_project.api.models.Post
-import com.example.jt_project.api.models.Owner
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.jt_project.models.Post
+import com.example.jt_project.models.Owner
 import com.example.jt_project.ui.searchingmodule.DataEnum
 import com.example.jt_project.ui.searchingmodule.compose.SearchingModuleCompose
 import com.example.jt_project.ui.searchingmodule.compose.SinglePostModelCompose
@@ -12,9 +13,10 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
 
-
+@RunWith(AndroidJUnit4::class)
 class SearchingModuleTest {
 
     @get:Rule
@@ -186,7 +188,7 @@ class SearchingModuleTest {
 
         composeTestRule.onNodeWithTag("dropDownButton").performClick()
         composeTestRule.onNodeWithText("USERS").performClick()
-        assert(selectedList == DataEnum.USERS)
+        Assert.assertTrue(selectedList == DataEnum.USERS)
     }
 
 
