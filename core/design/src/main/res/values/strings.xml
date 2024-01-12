@@ -1,0 +1,8 @@
+<resources>
+    <string name="start_screen_welcome">Welcome!</string>
+    <string name="start_screen_description">This is example ecommerce app</string>
+    <string name="start_screen_get_started">Get started</string>
+    <string name="main_screen_top_bar">Main Screen</string>
+    <string name="main_screen_categories_title">Categories</string>
+    <string name="main_screen_last_viewed_title">Last viewed</string>
+</resources>
