@@ -25,6 +25,7 @@ include(
     ":core:design",
     ":core:testing:mockwebserver",
     ":core:testing:endpoints",
+    ":core:testing:screenshots",
     ":data:product",
     ":feature:start",
     ":feature:main",
