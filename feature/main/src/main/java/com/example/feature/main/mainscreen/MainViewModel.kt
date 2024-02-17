@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.product.usecase.ProductPageUseCase
 import com.example.feature.main.mainscreen.mapper.toProductMain
+import com.jobandtalent.companies.core.coroutines.IO
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val productPageUseCase: ProductPageUseCase,
+    @IO private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MainUiState())
@@ -25,7 +28,7 @@ class MainViewModel @Inject constructor(
     val navigationEventFlow: StateFlow<MainNavigationEvent> = _navigationEventFlow
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(ioDispatcher) {
             updateMainState(MainState.Loading)
 
             productPageUseCase.invoke().handle(
