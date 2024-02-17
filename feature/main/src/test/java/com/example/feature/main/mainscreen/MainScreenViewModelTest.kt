@@ -69,7 +69,6 @@ class MainScreenViewModelTest {
         } returns Res.Error(error)
     }
 
-
     private fun initializeViewModel() = MainViewModel(
         productPageUseCase = productPageUseCase,
         ioDispatcher = testDispatcher,

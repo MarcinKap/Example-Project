@@ -1,7 +1,6 @@
 package com.example.feature.main.mainscreen
 
 import com.example.data.product.model.internal.Product
-import com.example.feature.main.mainscreen.model.ProductMain
 
 object ProductMotherData {
     internal val product_1 = Product(
@@ -27,8 +26,7 @@ object ProductMotherData {
     internal val product_2 = Product(
         id = 2,
         title = "iPhone X",
-        description =
-        "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+        description = "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip",
         price = 899,
         discountPercentage = 17.94,
         rating = 4.44,
@@ -43,5 +41,4 @@ object ProductMotherData {
             "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
         ),
     )
-
 }
