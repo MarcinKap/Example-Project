@@ -39,6 +39,7 @@ dependencies {
     // Android libraries
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(project(":core:coroutines"))
 
     coreLibraryDesugaring(libs.android.tools.desugar)
 
