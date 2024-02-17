@@ -68,7 +68,7 @@ fun MainScreen(
 }
 
 @Composable
-private fun MainScreenContent(
+internal fun MainScreenContent(
     isSearchingMode: Boolean,
     products: List<ProductMain>,
     onFocusSearchBar: (Boolean) -> Unit,

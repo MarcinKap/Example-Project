@@ -57,6 +57,8 @@ dependencies {
     implementation(libs.coil.compose)
 
     // Testing
+    implementation(projects.core.testing.screenshots)
+
     androidTestImplementation(platform(libs.androidx.compose.bom))
 
     testImplementation(platform(libs.junit.bom))
