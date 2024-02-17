@@ -26,7 +26,7 @@ private val product_2 = ProductMain(
     id = 2,
     title = "iPhone X",
     description =
-    "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+    "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip",
     price = 899,
     discountPercentage = 17.94,
     rating = 4.44,

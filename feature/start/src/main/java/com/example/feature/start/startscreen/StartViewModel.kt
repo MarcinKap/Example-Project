@@ -1,7 +1,6 @@
 package com.example.feature.start.startscreen
 
 import androidx.lifecycle.ViewModel
-import com.example.feature.start.startscreen.StartNavigationEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
