@@ -15,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,6 +28,8 @@ import com.example.feature.start.startscreen.StartNavigationEvent
 import com.example.feature.start.startscreen.StartNavigator
 import com.example.feature.start.startscreen.StartViewModel
 import com.ramcosta.composedestinations.annotation.Destination
+
+const val GET_STARTED_BUTTON_TEST_TAG = "GET_STARTED_BUTTON_TEST_TAG"
 
 @Destination
 @Composable
@@ -93,7 +96,9 @@ private fun StartScreenContentPreview() {
 @Composable
 private fun BottomButton(onClick: () -> Unit) {
     Button(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag(GET_STARTED_BUTTON_TEST_TAG),
         onClick = onClick,
     ) {
         Text(text = stringResource(id = R.string.start_screen_get_started))
