@@ -29,9 +29,11 @@
             <option value="$PROJECT_DIR$/core/design" />
             <option value="$PROJECT_DIR$/core/networking" />
             <option value="$PROJECT_DIR$/core/testing" />
+            <option value="$PROJECT_DIR$/core/testing/compose" />
             <option value="$PROJECT_DIR$/core/testing/endpoints" />
             <option value="$PROJECT_DIR$/core/testing/mockwebserver" />
             <option value="$PROJECT_DIR$/core/testing/screenshots" />
+            <option value="$PROJECT_DIR$/core/testing/ui" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/product" />
             <option value="$PROJECT_DIR$/feature" />

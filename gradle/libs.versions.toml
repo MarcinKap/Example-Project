@@ -1,5 +1,6 @@
 [versions]
 accompanist = "0.32.0"
+amplitude = "1.12.2"
 androidGradlePlugin = "8.1.2"
 androidMaterial = "1.10.0"
 androidxActivityCompose = "1.8.0"
@@ -13,11 +14,15 @@ androidxLifecycle = "2.6.2"
 androidxJunit = "1.1.5"
 androidxStartup = "1.1.1"
 androidxTestRunner = "1.5.2"
+androidxDatastore = "1.0.0"
 androidDesugar = "2.0.3"
 chucker = "4.0.0"
 coil = "2.5.0"
 composeDestinations = "1.9.55"
 detektGradlePlugin = "1.23.4"
+firebaseAppDistributionGradlePlugin = "4.0.1"
+firebaseCrashlyticsGradlePlugin = "2.9.9"
+firebaseBom = "32.4.0"
 fladleGradlePlugin = "0.17.4"
 googleServicesGradlePlugin = "4.4.0"
 kotest = "5.8.0"
@@ -29,11 +34,12 @@ koverGradlePlugin = "0.6.1"
 ksp = "1.9.21-1.0.16"
 ktlint = "0.45.2"
 ktlintGradlePlugin = "11.6.1"
-hilt = "2.49"
+hilt = "2.50"
 javapoet = "1.13.0"
-junit = "5.10.0"
-junit-vintage = "5.10.0"
+junit = "5.10.1"
 junitKotlinExtensions = "0.0.3"
+
+jwt = "2.0.2"
 mockk = "1.13.8"
 mockWebServer = "4.12.0"
 mockWebServer-pathDispatcher = "1.1.7"
@@ -46,16 +52,15 @@ room = "2.6.1"
 turbine = "1.0.0"
 twitter-compose-rules-detekt = "0.0.26"
 testparameterinjector = "1.12"
-agp = "7.1.2"
-kotlin160 = "1.6.0"
-core-ktx = "1.12.0"
-kotlin-bom = "1.8.0"
-junit-junit = "4.13.2"
-appcompat = "1.6.1"
+datadog = "2.4.0"
+datadogGradlePlugin = "1.12.0"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+datadog-gradlePlugin = { group = "com.datadoghq", name = "dd-sdk-android-gradle-plugin", version.ref = "datadogGradlePlugin" }
 detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
+firebase-appDistribution-gradlePlugin = { group = "com.google.firebase", name = "firebase-appdistribution-gradle", version.ref = "firebaseAppDistributionGradlePlugin" }
+firebase-crashlytics-gradlePlugin = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradlePlugin" }
 fladle-gradlePlugin = { group = "com.osacky.flank.gradle", name = "fladle", version.ref = "fladleGradlePlugin" }
 google-services-gradlePlugin = { group = "com.google.gms", name = "google-services", version.ref = "googleServicesGradlePlugin" }
 hilt-gradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt" }
@@ -66,6 +71,8 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 kover-gradlePlugin = { group = "org.jetbrains.kotlinx", name = "kover", version.ref = "koverGradlePlugin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 paparazzi-gradlePlugin = { group = "app.cash.paparazzi", name = "paparazzi-gradle-plugin", version.ref = "paparazzi" }
+
+amplitude-analytics = { group = "com.amplitude", name = "analytics-android", version.ref = "amplitude" }
 
 android-tools-desugar = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugar" }
 
@@ -78,6 +85,8 @@ androidx-lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-r
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidxDatastore" }
+androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "androidxDatastore" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
 
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
@@ -101,6 +110,15 @@ compose-rules = { group = "com.twitter.compose.rules", name = "detekt", version.
 
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
+datadog-rum = { group = "com.datadoghq", name = "dd-sdk-android-rum", version.ref = "datadog" }
+datadog-okhttp = { group = "com.datadoghq", name = "dd-sdk-android-okhttp", version.ref = "datadog" }
+datadog-trace = { group = "com.datadoghq", name = "dd-sdk-android-trace", version.ref = "datadog" }
+
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-remote-config = { module = "com.google.firebase:firebase-config" }
+firebase-cloud-messaging = { module = "com.google.firebase:firebase-messaging" }
+
 google-accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanist" }
 google-accompanist-webview = { group = "com.google.accompanist", name = "accompanist-webview", version.ref = "accompanist" }
 google-accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
@@ -122,7 +140,9 @@ junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
 junit-params = { group = "org.junit.jupiter", name = "junit-jupiter-params" }
 junit-kotlinextensions = { group = "de.jodamob.junit5", name = "junit5-kotlin", version.ref = "junitKotlinExtensions" }
-junit-vintage = { group = "org.junit.vintage", name = "junit-vintage-engine", version.ref = "junit-vintage" }
+junit-vintage = { group = "org.junit.vintage", name = "junit-vintage-engine", version.ref = "junit" }
+
+jwt = { module = "com.auth0.android:jwtdecode", version.ref = "jwt" }
 
 kotest-bom = { group = "io.kotest", name = "kotest-bom", version.ref = "kotest" }
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core" }
@@ -155,12 +175,6 @@ room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 testparameterinjector = { group = "com.google.testparameterinjector", name = "test-parameter-injector", version.ref = "testparameterinjector" }
 
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
-kotlin-bom = { group = "org.jetbrains.kotlin", name = "kotlin-bom", version.ref = "kotlin-bom" }
-junit = { group = "junit", name = "junit", version.ref = "junit-junit" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-androidApplication = { id = "com.android.application", version.ref = "agp" }
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin160" }

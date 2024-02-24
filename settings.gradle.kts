@@ -17,7 +17,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "example-project"
+rootProject.name = "example"
 include(
     ":app",
     ":core:networking",

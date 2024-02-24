@@ -18,6 +18,4 @@ buildscript {
 
 plugins {
     id("com.example.kotlin.kover")
-    alias(libs.plugins.androidApplication) apply false
-    alias(libs.plugins.kotlinAndroid) apply false
 }
