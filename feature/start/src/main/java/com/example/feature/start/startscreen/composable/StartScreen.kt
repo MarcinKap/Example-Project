@@ -51,7 +51,7 @@ fun StartScreen(
 }
 
 @Composable
-private fun StartScreenContent(
+internal fun StartScreenContent(
     onClick: () -> Unit,
 ) {
     Column(

@@ -56,7 +56,9 @@ dependencies {
     implementation(libs.coil.compose)
 
     // Testing
-    androidTestImplementation(platform(libs.androidx.compose.bom))
+    testImplementation(projects.core.testing.screenshots)
+
+    testImplementation(libs.testparameterinjector)
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
@@ -67,12 +69,13 @@ dependencies {
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.kotest.runner.junit5)
 
-    testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
     testImplementation(libs.turbine)
 
-    testImplementation(libs.testparameterinjector)
-    testRuntimeOnly(libs.junit.vintage)
+    androidTestImplementation(projects.core.testing.compose)
+    androidTestImplementation(projects.core.testing.ui)
+    androidTestImplementation(projects.core.testing.mockwebserver)
 
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.test.ext.junit)
@@ -86,7 +89,9 @@ dependencies {
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.mockwebserver.pathdispatcher)
     androidTestImplementation(libs.okhttp.mockwebserver)
-    androidTestImplementation(libs.androidx.compose.ui.manifest)
+
+    testImplementation(libs.testparameterinjector)
+    testRuntimeOnly(libs.junit.vintage)
 
     // Third Party
     implementation(libs.compose.destinations.animations.core)

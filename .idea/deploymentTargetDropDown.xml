@@ -30,6 +30,9 @@
       <entry key="feature.start">
         <State />
       </entry>
+      <entry key="shouldNavigateToMainScreen_whenNavigationEventIsShowMainScreen()">
+        <State />
+      </entry>
     </value>
   </component>
 </project>
