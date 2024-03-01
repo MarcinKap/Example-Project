@@ -60,6 +60,7 @@ fun MainScreen(
 
     MainScreenContent(
         products = uiState.products,
+        categories = listOf("All", "smartphones", "laptops", "fragrances", "skincare", "groceries"),
         isSearchingMode = uiState.isSearchingMode,
         onFocusSearchBar = viewModel::onFocusSearchBar,
         onBackPressed = viewModel::onBackPressed,
@@ -72,6 +73,7 @@ fun MainScreen(
 internal fun MainScreenContent(
     isSearchingMode: Boolean,
     products: List<ProductMain>,
+    categories: List<String>,
     onFocusSearchBar: (Boolean) -> Unit,
     onBackPressed: () -> Unit,
 ) {
@@ -90,6 +92,7 @@ internal fun MainScreenContent(
             } else {
                 MainLazyColumn(
                     products = products,
+                    categories = categories,
                 )
             }
         }
@@ -103,6 +106,7 @@ private fun MainScreenContentPreview() {
         MainScreenContent(
             isSearchingMode = true,
             products = previewProductList,
+            categories = listOf("All", "smartphones", "laptops", "fragrances", "skincare", "groceries"),
             onFocusSearchBar = {},
             onBackPressed = {},
         )
@@ -136,7 +140,6 @@ private fun TopBar(
             onFocusSearchBar(true)
         }
     }
-
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
