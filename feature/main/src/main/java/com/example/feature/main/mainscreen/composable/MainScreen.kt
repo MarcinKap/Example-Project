@@ -2,6 +2,7 @@ package com.example.feature.main.mainscreen.composable
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -136,30 +137,40 @@ private fun TopBar(
         }
     }
 
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 4.dp)
+            .padding(
+                start = 4.dp,
+                end = 4.dp,
+            )
             .height(64.dp),
     ) {
-        AnimatedContent(targetState = currentIsSearchingMode, label = "123") { isSearchingMode ->
+        AnimatedContent(
+            targetState = currentIsSearchingMode,
+            label = "back button animated content",
+        ) { isSearchingMode ->
             if (isSearchingMode) {
                 IconButton(
-                    modifier = Modifier
-                        .size(48.dp),
+                    modifier = Modifier.size(48.dp),
+                    size = 24.dp,
                     painter = painterResource(id = R.drawable.ic_arrow_back),
                     onClick = onBackPressed,
                 )
-                Spacer(modifier = Modifier.width(4.dp))
+            } else {
+                Spacer(modifier = Modifier.width(12.dp))
             }
         }
+
         SearchBar(
             value = value,
             onValueChange = { value = it },
+            placeholder = "Search",
             modifier = Modifier
                 .weight(1f)
-                .padding(start = 12.dp, end = 16.dp)
                 .onFocusChanged {
                     isSearchBarFocused = it.hasFocus
                 },
@@ -168,16 +179,34 @@ private fun TopBar(
                 focusManager.clearFocus()
             },
         )
+
+        AnimatedContent(
+            targetState = currentIsSearchingMode,
+            label = "shop cart animated content",
+        ) { isSearchingMode ->
+            if (!isSearchingMode) {
+                IconButton(
+                    modifier = Modifier.size(48.dp),
+                    size = 24.dp,
+                    painter = painterResource(id = R.drawable.shop_cart),
+                    enabled = false,
+                    onClick = {},
+                )
+            }
+        }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
 private fun TopBarPreview() {
     ExampleTheme {
-//        TopBar(
-//            {}
-//        )
+        TopBar(
+            isSearchingMode = true,
+            onFocusSearchBar = {},
+            onBackPressed = {},
+        )
     }
 }
 
@@ -206,4 +235,9 @@ private fun MainNavigationHandler(
             MainNavigationEvent.Idle -> {}
         }
     }
+}
+
+@Composable
+private fun BasketButton() {
+
 }
