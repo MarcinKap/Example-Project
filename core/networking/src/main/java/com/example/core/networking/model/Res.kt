@@ -23,3 +23,20 @@ sealed class Res<out Error, out Success> {
     ): Res<E, Success> =
         handle({ Error(fn(it)) }, { Success(it) })
 }
+
+
+inline fun <Result> Res<*, Result>.getOrElse(default: () -> Result): Result =
+    handle(
+        errorResponse = { default() },
+        successResponse = { it },
+    )
+
+inline fun <Error> Res<Error, *>.getErrorOrElse(default: () -> Error): Error =
+    handle(
+        errorResponse = { it },
+        successResponse = { default() },
+    )
+
+fun <Result> Res<*, Result>.orNull(): Result? = getOrElse { null }
+
+fun <Error> Res<Error, *>.error(): Error? = getErrorOrElse { null }

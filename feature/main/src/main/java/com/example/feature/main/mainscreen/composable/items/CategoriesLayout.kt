@@ -1,6 +1,7 @@
 package com.example.feature.main.mainscreen.composable.items
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -24,17 +25,17 @@ internal fun LazyListScope.categoriesLayout(
     onCategorySelect: (String) -> Unit,
 ) {
     item {
-        LazyRow {
-            item {
-                Spacer(modifier = Modifier.width(16.dp))
-            }
-
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            item { Spacer(modifier = Modifier.width(12.dp)) }
             items(items = categories, key = { it }) {
                 CategoryItem(
                     name = it,
                     onClick = { onCategorySelect(it) },
                 )
             }
+            item { Spacer(modifier = Modifier.width(12.dp)) }
         }
     }
     item {

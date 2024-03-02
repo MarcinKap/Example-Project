@@ -60,7 +60,7 @@ fun MainScreen(
 
     MainScreenContent(
         products = uiState.products,
-        categories = listOf("All", "smartphones", "laptops", "fragrances", "skincare", "groceries"),
+        categories = uiState.categories,
         isSearchingMode = uiState.isSearchingMode,
         onFocusSearchBar = viewModel::onFocusSearchBar,
         onBackPressed = viewModel::onBackPressed,
@@ -164,7 +164,7 @@ private fun TopBar(
                     onClick = onBackPressed,
                 )
             } else {
-                Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = Modifier.width(8.dp))
             }
         }
 

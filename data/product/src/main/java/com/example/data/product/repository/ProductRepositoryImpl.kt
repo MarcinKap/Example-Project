@@ -15,4 +15,8 @@ internal class ProductRepositoryImpl @Inject constructor(
             it.toProductPage()
         }
     }
+
+    override suspend fun getCategories(): Res<NetworkError, List<String>> {
+        return remoteDataSource.getCategories()
+    }
 }

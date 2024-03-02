@@ -3,10 +3,16 @@ package com.example.feature.main.mainscreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.coroutines.IO
+import com.example.core.networking.model.Res
+import com.example.core.networking.model.error
+import com.example.core.networking.model.orNull
+import com.example.data.product.usecase.CategoriesUseCase
 import com.example.data.product.usecase.ProductPageUseCase
 import com.example.feature.main.mainscreen.mapper.toProductMain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val productPageUseCase: ProductPageUseCase,
+    private val categoriesUseCase: CategoriesUseCase,
     @IO private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
@@ -31,19 +38,25 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             updateMainState(MainState.Loading)
 
-            productPageUseCase.invoke().handle(
-                errorResponse = {
-                    updateMainState(MainState.Error(it))
-                },
-                successResponse = { productPage ->
-                    _uiState.update {
-                        it.copy(
-                            state = MainState.Success,
-                            products = productPage.products.map { it.toProductMain() },
-                        )
-                    }
-                },
-            )
+
+            val products = async { productPageUseCase.invoke() }
+            val categories = async { categoriesUseCase.invoke() }
+
+            val productsResponse = products.await()
+            val categoriesResponse = categories.await()
+
+            _uiState.update { currentState ->
+                currentState.copy(
+                    state = when {
+                        productsResponse is Res.Error -> MainState.Error(productsResponse.error()!!)
+                        categoriesResponse is Res.Error -> MainState.Error(categoriesResponse.error()!!)
+                        else -> MainState.Success
+                    },
+                    products = productsResponse.map { it.products.map { it.toProductMain() } }.orNull()
+                        ?: currentState.products,
+                    categories = categoriesResponse.mapError { it }.orNull() ?: currentState.categories,
+                )
+            }
         }
     }
 

@@ -18,7 +18,7 @@ internal fun ColumnScope.MainLazyColumn(
     ) {
         if (categories.isNotEmpty()) {
             categoriesLayout(
-                categories = listOf("All", "smartphones", "laptops", "fragrances", "skincare", "groceries"),
+                categories = categories,
                 onCategorySelect = {},
             )
         }
