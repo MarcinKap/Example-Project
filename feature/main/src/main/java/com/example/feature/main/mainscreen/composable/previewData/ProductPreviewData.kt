@@ -2,7 +2,7 @@ package com.example.feature.main.mainscreen.composable.previewData
 
 import com.example.feature.main.mainscreen.model.ProductMain
 
-private val product_1 = ProductMain(
+internal val product_1 = ProductMain(
     id = 1,
     title = "iPhone 9",
     description = "An apple mobile which is nothing like apple",
