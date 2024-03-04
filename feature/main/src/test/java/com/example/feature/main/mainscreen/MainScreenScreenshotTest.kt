@@ -18,7 +18,9 @@ class MainScreenScreenshotTest : PaparazziTest() {
                 products = previewProductList,
                 categories = listOf("All", "motorcycle", "car"),
                 selectedCategory = "All",
+                lastProductRequest = ProductRequest.AllProducts,
                 onFocusSearchBar = {},
+                onSearchBarValueChange = {},
                 onCategorySelect = {},
                 onBackPressed = {},
             )

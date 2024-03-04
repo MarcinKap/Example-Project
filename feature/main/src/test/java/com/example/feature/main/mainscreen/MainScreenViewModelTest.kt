@@ -4,7 +4,6 @@ import com.example.core.networking.model.NetworkError
 import com.example.core.networking.model.Res
 import com.example.data.product.model.internal.ProductPage
 import com.example.data.product.usecase.CategoriesUseCase
-import com.example.data.product.usecase.ProductPageByCategoryUseCase
 import com.example.data.product.usecase.ProductPageUseCase
 import com.example.feature.main.mainscreen.ProductMotherData.product_1
 import com.example.feature.main.mainscreen.ProductMotherData.product_2
@@ -22,7 +21,6 @@ import org.junit.jupiter.params.provider.MethodSource
 
 class MainScreenViewModelTest {
     private val productPageUseCase: ProductPageUseCase = mockk(relaxed = true)
-    private val productPageByCategoryUseCase: ProductPageByCategoryUseCase = mockk(relaxed = true)
     private val categoriesUseCase: CategoriesUseCase = mockk(relaxed = true)
     private val testDispatcher = UnconfinedTestDispatcher()
 
@@ -94,7 +92,6 @@ class MainScreenViewModelTest {
 
     private fun initializeViewModel() = MainViewModel(
         productPageUseCase = productPageUseCase,
-        productPageByCategoryUseCase = productPageByCategoryUseCase,
         categoriesUseCase = categoriesUseCase,
         ioDispatcher = testDispatcher,
     )
