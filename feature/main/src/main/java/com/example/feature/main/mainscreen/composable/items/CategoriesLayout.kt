@@ -27,7 +27,7 @@ internal fun LazyListScope.categoriesLayout(
 ) {
     item {
         LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             item { Spacer(modifier = Modifier.width(12.dp)) }
             items(items = categories, key = { it }) {

@@ -47,8 +47,8 @@ class StartScreenTest : ComposeHiltTest() {
     @Test
     fun shouldNavigateToMainScreen_whenNavigationEventIsShowMainScreen() {
         navigationEvent.update { StartNavigationEvent.ShowMainScreen }
-        start {
 
+        start {
             verify { testNavigator.showMainScreen() }
         }
     }

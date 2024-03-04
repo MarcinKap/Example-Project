@@ -64,7 +64,8 @@ internal fun LazyListScope.productsLayout(products: List<ProductMain>) {
                 Product(
                     modifier = Modifier
                         .weight(1f)
-                        .fillMaxHeight() .background(Color.White, RoundedCornerShape(8.dp))
+                        .fillMaxHeight()
+                        .background(Color.White, RoundedCornerShape(8.dp))
                         .padding(8.dp),
                     product = secondProduct,
                 )
@@ -158,7 +159,6 @@ private fun ProductSummary(
                         style = MaterialTheme.typography.labelMedium,
                     )
                 }
-
             }
         }
 
@@ -188,8 +188,8 @@ private fun ProductDescription(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
-
         VerticalSpacer(height = 4.dp)
+
         Text(
             text = product.title ?: "",
             style = MaterialTheme.typography.bodyMedium,
@@ -197,8 +197,6 @@ private fun ProductDescription(
         )
 
         VerticalSpacer(height = 8.dp)
-
-
     }
 }
 

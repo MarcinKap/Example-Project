@@ -17,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
@@ -30,7 +29,6 @@ import com.example.core.design.iconbutton.IconButton
 import com.example.core.design.searchbar.SearchBar
 import com.example.core.design.theme.ExampleTheme
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun TopBar(
     isSearchingMode: Boolean,
@@ -116,7 +114,6 @@ internal fun TopBar(
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

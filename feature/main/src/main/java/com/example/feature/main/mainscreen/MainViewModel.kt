@@ -12,7 +12,6 @@ import com.example.feature.main.mainscreen.mapper.toProductMain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,7 +36,6 @@ class MainViewModel @Inject constructor(
     init {
         viewModelScope.launch(ioDispatcher) {
             updateMainState(MainState.Loading)
-
 
             val products = async { productPageUseCase.invoke() }
             val categories = async { categoriesUseCase.invoke() }

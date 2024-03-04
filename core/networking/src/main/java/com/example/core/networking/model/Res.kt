@@ -24,7 +24,6 @@ sealed class Res<out Error, out Success> {
         handle({ Error(fn(it)) }, { Success(it) })
 }
 
-
 inline fun <Result> Res<*, Result>.getOrElse(default: () -> Result): Result =
     handle(
         errorResponse = { default() },
