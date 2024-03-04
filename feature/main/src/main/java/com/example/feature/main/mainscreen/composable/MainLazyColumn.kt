@@ -12,6 +12,7 @@ import com.example.feature.main.mainscreen.model.ProductMain
 internal fun ColumnScope.MainLazyColumn(
     products: List<ProductMain>,
     categories: List<String>,
+    selectedCategory: String,
 ) {
     LazyColumn(
         modifier = Modifier.weight(1f),
@@ -19,6 +20,7 @@ internal fun ColumnScope.MainLazyColumn(
         if (categories.isNotEmpty()) {
             categoriesLayout(
                 categories = categories,
+                selectedCategory = selectedCategory,
                 onCategorySelect = {},
             )
         }
