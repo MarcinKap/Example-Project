@@ -11,11 +11,17 @@ import com.example.feature.main.mainscreen.model.ProductMain
 @Composable
 internal fun ColumnScope.MainLazyColumn(
     products: List<ProductMain>,
+    categories: List<String>,
 ) {
     LazyColumn(
         modifier = Modifier.weight(1f),
     ) {
-        categoriesLayout()
+        if (categories.isNotEmpty()) {
+            categoriesLayout(
+                categories = categories,
+                onCategorySelect = {},
+            )
+        }
         if (products.isNotEmpty()) {
             productsLayout(products)
         }

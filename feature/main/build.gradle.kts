@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.lifecycle.compose)
+    implementation(libs.paging.compose)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.google.accompanist.pager)

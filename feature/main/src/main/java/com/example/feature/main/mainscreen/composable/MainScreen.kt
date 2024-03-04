@@ -2,6 +2,8 @@ package com.example.feature.main.mainscreen.composable
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,6 +37,9 @@ import com.example.core.design.R
 import com.example.core.design.iconbutton.IconButton
 import com.example.core.design.searchbar.SearchBar
 import com.example.core.design.theme.ExampleTheme
+import com.example.core.design.theme.Grey90
+import com.example.core.design.theme.Grey95
+import com.example.core.design.theme.Grey99
 import com.example.feature.main.mainscreen.MainNavigationEvent
 import com.example.feature.main.mainscreen.MainNavigator
 import com.example.feature.main.mainscreen.MainViewModel
@@ -59,6 +64,7 @@ fun MainScreen(
 
     MainScreenContent(
         products = uiState.products,
+        categories = uiState.categories,
         isSearchingMode = uiState.isSearchingMode,
         onFocusSearchBar = viewModel::onFocusSearchBar,
         onBackPressed = viewModel::onBackPressed,
@@ -71,11 +77,12 @@ fun MainScreen(
 internal fun MainScreenContent(
     isSearchingMode: Boolean,
     products: List<ProductMain>,
+    categories: List<String>,
     onFocusSearchBar: (Boolean) -> Unit,
     onBackPressed: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(Grey95),
     ) {
         TopBar(
             isSearchingMode = isSearchingMode,
@@ -89,6 +96,7 @@ internal fun MainScreenContent(
             } else {
                 MainLazyColumn(
                     products = products,
+                    categories = categories,
                 )
             }
         }
@@ -102,82 +110,10 @@ private fun MainScreenContentPreview() {
         MainScreenContent(
             isSearchingMode = true,
             products = previewProductList,
+            categories = listOf("All", "smartphones", "laptops", "fragrances", "skincare", "groceries"),
             onFocusSearchBar = {},
             onBackPressed = {},
         )
-    }
-}
-
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-private fun TopBar(
-    isSearchingMode: Boolean,
-    onFocusSearchBar: (Boolean) -> Unit,
-    onBackPressed: () -> Unit,
-) {
-    val focusManager = LocalFocusManager.current
-    val keyboardController = LocalSoftwareKeyboardController.current
-
-    var value by remember { mutableStateOf("") }
-
-    var isSearchBarFocused by remember { mutableStateOf(false) }
-    val currentIsSearchingMode by rememberUpdatedState(newValue = isSearchingMode)
-
-    LaunchedEffect(currentIsSearchingMode) {
-        if (!currentIsSearchingMode) {
-            value = ""
-            focusManager.clearFocus()
-        }
-    }
-
-    LaunchedEffect(key1 = isSearchBarFocused) {
-        if (isSearchBarFocused) {
-            onFocusSearchBar(true)
-        }
-    }
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 4.dp)
-            .height(64.dp),
-    ) {
-        AnimatedContent(targetState = currentIsSearchingMode, label = "123") { isSearchingMode ->
-            if (isSearchingMode) {
-                IconButton(
-                    modifier = Modifier
-                        .size(48.dp),
-                    painter = painterResource(id = R.drawable.ic_arrow_back),
-                    onClick = onBackPressed,
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-            }
-        }
-        SearchBar(
-            value = value,
-            onValueChange = { value = it },
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 12.dp, end = 16.dp)
-                .onFocusChanged {
-                    isSearchBarFocused = it.hasFocus
-                },
-            onSearch = {
-                keyboardController?.hide()
-                focusManager.clearFocus()
-            },
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun TopBarPreview() {
-    ExampleTheme {
-//        TopBar(
-//            {}
-//        )
     }
 }
 
@@ -206,4 +142,9 @@ private fun MainNavigationHandler(
             MainNavigationEvent.Idle -> {}
         }
     }
+}
+
+@Composable
+private fun BasketButton() {
+
 }

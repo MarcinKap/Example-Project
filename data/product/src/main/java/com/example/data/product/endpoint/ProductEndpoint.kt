@@ -8,4 +8,7 @@ import retrofit2.http.GET
 interface ProductEndpoint {
     @GET("/products")
     suspend fun getAllProducts(): Res<NetworkError, ProductPageResponse>
+
+    @GET("/products/categories")
+    suspend fun getCategories(): Res<NetworkError, List<String>>
 }
