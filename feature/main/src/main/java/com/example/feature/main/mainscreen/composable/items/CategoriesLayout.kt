@@ -26,6 +26,9 @@ internal fun LazyListScope.categoriesLayout(
     onCategorySelect: (String) -> Unit,
 ) {
     item {
+        Spacer(modifier = Modifier.height(12.dp))
+    }
+    item {
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
@@ -40,7 +43,7 @@ internal fun LazyListScope.categoriesLayout(
         }
     }
     item {
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(12.dp))
     }
 }
 
