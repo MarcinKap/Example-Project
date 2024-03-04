@@ -54,7 +54,7 @@ fun SearchBar(
     }
     var lastTextValue by remember(value) { mutableStateOf(value) }
 
-    Box(modifier = modifier.padding(vertical = 8.dp)) {
+    Box(modifier = modifier.padding(vertical = 6.dp)) {
         CustomTextField(
             modifier = Modifier
                 .fillMaxWidth()
