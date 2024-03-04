@@ -7,6 +7,7 @@ import com.example.core.networking.model.Res
 import com.example.core.networking.model.error
 import com.example.core.networking.model.orNull
 import com.example.data.product.usecase.CategoriesUseCase
+import com.example.data.product.usecase.ProductPageByCategoryUseCase
 import com.example.data.product.usecase.ProductPageUseCase
 import com.example.feature.main.mainscreen.mapper.toProductMain
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val productPageUseCase: ProductPageUseCase,
+    private val productPageByCategoryUseCase: ProductPageByCategoryUseCase,
     private val categoriesUseCase: CategoriesUseCase,
     @IO private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
@@ -69,6 +71,62 @@ class MainViewModel @Inject constructor(
         _uiState.update {
             it.copy(isSearchingMode = boolean)
         }
+    }
+
+    internal fun onCategorySelect(category: String) {
+        if (_uiState.value.categories.contains(category)) {
+            viewModelScope.launch {
+                _uiState.update {
+                    it.copy(state = MainState.Reloading)
+                }
+
+                if (category == "All") {
+                    downloadAllProducts()
+                } else {
+                    downloadProductsByCategory(category)
+                }
+            }
+        }
+    }
+
+    private suspend fun downloadAllProducts() {
+        productPageUseCase.invoke().handle(
+            errorResponse = { networkError ->
+                _uiState.update {
+                    it.copy(
+                        state = MainState.Error(networkError),
+                    )
+                }
+            },
+            successResponse = { productPage ->
+                _uiState.update {
+                    it.copy(
+                        products = productPage.products.map { it.toProductMain() },
+                        selectedCategory = "All",
+                    )
+                }
+            },
+        )
+    }
+
+    private suspend fun downloadProductsByCategory(category: String) {
+        productPageByCategoryUseCase.invoke(category).handle(
+            errorResponse = { networkError ->
+                _uiState.update {
+                    it.copy(
+                        state = MainState.Error(networkError),
+                    )
+                }
+            },
+            successResponse = { productPage ->
+                _uiState.update {
+                    it.copy(
+                        products = productPage.products.map { it.toProductMain() },
+                        selectedCategory = category,
+                    )
+                }
+            },
+        )
     }
 
     internal fun onBackPressed() {

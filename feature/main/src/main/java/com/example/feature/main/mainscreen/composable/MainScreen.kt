@@ -44,6 +44,7 @@ fun MainScreen(
         isSearchingMode = uiState.isSearchingMode,
         selectedCategory = uiState.selectedCategory,
         onFocusSearchBar = viewModel::onFocusSearchBar,
+        onCategorySelect = viewModel::onCategorySelect,
         onBackPressed = viewModel::onBackPressed,
     )
 
@@ -57,6 +58,7 @@ internal fun MainScreenContent(
     categories: List<String>,
     selectedCategory: String,
     onFocusSearchBar: (Boolean) -> Unit,
+    onCategorySelect: (String) -> Unit,
     onBackPressed: () -> Unit,
 ) {
     Column(
@@ -78,6 +80,7 @@ internal fun MainScreenContent(
                     products = products,
                     categories = categories,
                     selectedCategory = selectedCategory,
+                    onCategorySelect = onCategorySelect,
                 )
             }
         }
@@ -94,6 +97,7 @@ private fun MainScreenContentPreview() {
             categories = listOf("All", "smartphones", "laptops", "fragrances", "skincare", "groceries"),
             selectedCategory = "All",
             onFocusSearchBar = {},
+            onCategorySelect = {},
             onBackPressed = {},
         )
     }

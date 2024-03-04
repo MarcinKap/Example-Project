@@ -1,7 +1,6 @@
 package com.example.feature.main.mainscreen.composable.items
 
 import androidx.compose.foundation.Indication
-import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -28,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.core.design.theme.Grey50
 import com.example.core.design.theme.Grey60
-import com.example.core.design.theme.Grey95
 
 internal fun LazyListScope.categoriesLayout(
     categories: List<String>,

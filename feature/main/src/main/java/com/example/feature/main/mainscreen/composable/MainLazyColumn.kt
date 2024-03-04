@@ -13,6 +13,7 @@ internal fun ColumnScope.MainLazyColumn(
     products: List<ProductMain>,
     categories: List<String>,
     selectedCategory: String,
+    onCategorySelect: (String) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.weight(1f),
@@ -21,7 +22,7 @@ internal fun ColumnScope.MainLazyColumn(
             categoriesLayout(
                 categories = categories,
                 selectedCategory = selectedCategory,
-                onCategorySelect = {},
+                onCategorySelect = onCategorySelect,
             )
         }
         if (products.isNotEmpty()) {
