@@ -140,7 +140,7 @@ class MainViewModel @Inject constructor(
     }
 
     private suspend fun downloadProductsByName(productName: String) {
-        if (uiState.value.lastProductsRequest != ProductRequest.Name(productName))
+        if (uiState.value.lastProductsRequest != ProductRequest.Name(productName)) {
             productPageUseCase
                 .invoke(ProductPageUseCase.Params(productName, ProductParam.Name))
                 .handle(
@@ -161,6 +161,7 @@ class MainViewModel @Inject constructor(
                         }
                     },
                 )
+        }
     }
 
     internal fun onBackPressed() {

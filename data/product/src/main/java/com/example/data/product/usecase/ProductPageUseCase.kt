@@ -4,7 +4,6 @@ import com.example.core.networking.model.NetworkError
 import com.example.core.networking.model.Res
 import com.example.data.product.model.internal.ProductPage
 import com.example.data.product.repository.ProductRepository
-import java.time.LocalDate
 import javax.inject.Inject
 
 class ProductPageUseCase @Inject constructor(private val productRepository: ProductRepository) {
@@ -24,6 +23,6 @@ class ProductPageUseCase @Inject constructor(private val productRepository: Prod
 }
 
 sealed class ProductParam {
-    object Category : ProductParam()
-    object Name : ProductParam()
+    data object Category : ProductParam()
+    data object Name : ProductParam()
 }
