@@ -4,6 +4,7 @@ import com.example.core.networking.model.NetworkError
 import com.example.core.networking.model.Res
 import com.example.data.product.model.internal.ProductPage
 import com.example.data.product.usecase.CategoriesUseCase
+import com.example.data.product.usecase.ProductPageByCategoryUseCase
 import com.example.data.product.usecase.ProductPageUseCase
 import com.example.feature.main.mainscreen.ProductMotherData.product_1
 import com.example.feature.main.mainscreen.ProductMotherData.product_2
@@ -21,12 +22,24 @@ import org.junit.jupiter.params.provider.MethodSource
 
 class MainScreenViewModelTest {
     private val productPageUseCase: ProductPageUseCase = mockk(relaxed = true)
+    private val productPageByCategoryUseCase: ProductPageByCategoryUseCase = mockk(relaxed = true)
     private val categoriesUseCase: CategoriesUseCase = mockk(relaxed = true)
     private val testDispatcher = UnconfinedTestDispatcher()
 
     @Test
     fun `Should invoke ProductPageUseCase when screen launches`() = runTest {
         givenASuccessfulResultOnProductPageRequest()
+        givenASuccessfulResultOnCategoryListRequest()
+
+        initializeViewModel()
+
+        coVerify { productPageUseCase.invoke() }
+    }
+
+    @Test
+    fun `Should invoke CategoriesUseCase when screen launches`() = runTest {
+        givenASuccessfulResultOnProductPageRequest()
+        givenASuccessfulResultOnCategoryListRequest()
 
         initializeViewModel()
 
@@ -36,11 +49,13 @@ class MainScreenViewModelTest {
     @Test
     fun `Should download product list when screen launches`() = runTest {
         givenASuccessfulResultOnProductPageRequest(anyProductPage)
+        givenASuccessfulResultOnCategoryListRequest(anyCategoriesReponse)
 
         val sut = initializeViewModel()
 
         sut.uiState.value.should {
             it.products shouldBe previewProductList
+            it.categories shouldBe anyCategoriesList
             it.state shouldBe MainState.Success
         }
     }
@@ -65,6 +80,12 @@ class MainScreenViewModelTest {
         coEvery { productPageUseCase.invoke() } returns Res.Success(productPage)
     }
 
+    private fun givenASuccessfulResultOnCategoryListRequest(
+        categories: List<String> = emptyList(),
+    ) {
+        coEvery { categoriesUseCase.invoke() } returns Res.Success(categories)
+    }
+
     private fun givenAnErrorOnProductPageRequest(error: NetworkError) {
         coEvery {
             productPageUseCase.invoke()
@@ -73,6 +94,7 @@ class MainScreenViewModelTest {
 
     private fun initializeViewModel() = MainViewModel(
         productPageUseCase = productPageUseCase,
+        productPageByCategoryUseCase = productPageByCategoryUseCase,
         categoriesUseCase = categoriesUseCase,
         ioDispatcher = testDispatcher,
     )
@@ -87,6 +109,9 @@ class MainScreenViewModelTest {
             skip = 0,
             limit = 0,
         )
+
+        val anyCategoriesReponse = listOf("car", "bikes", "fruits")
+        val anyCategoriesList = listOf("All", "car", "bikes", "fruits")
 
         @JvmStatic
         fun errors() = listOf(

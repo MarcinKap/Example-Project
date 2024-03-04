@@ -16,7 +16,10 @@ class MainScreenScreenshotTest : PaparazziTest() {
             MainScreenContent(
                 isSearchingMode = false,
                 products = previewProductList,
+                categories = listOf("All", "motorcycle", "car"),
+                selectedCategory = "All",
                 onFocusSearchBar = {},
+                onCategorySelect = {},
                 onBackPressed = {},
             )
         }
