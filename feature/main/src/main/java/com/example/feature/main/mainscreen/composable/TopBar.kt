@@ -28,6 +28,7 @@ import com.example.core.design.R
 import com.example.core.design.iconbutton.IconButton
 import com.example.core.design.searchbar.SearchBar
 import com.example.core.design.theme.ExampleTheme
+import kotlinx.coroutines.delay
 
 @Composable
 internal fun TopBar(
@@ -54,6 +55,13 @@ internal fun TopBar(
     LaunchedEffect(key1 = isSearchBarFocused) {
         if (isSearchBarFocused) {
             onFocusSearchBar(true)
+        }
+    }
+
+    LaunchedEffect(key1 = value) {
+        delay(800)
+        if (isSearchBarFocused) {
+            onSearchBarValueChange(value)
         }
     }
 
