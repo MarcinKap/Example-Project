@@ -7,3 +7,7 @@ The application has been divided into modules
 - core - modules used as extensions or libraries for other modules
 
 The application uses Jetpack Compose entirely, along with navigation adapted to this library
+
+
+Video:
+https://github.com/MarcinKap/Example-Project/assets/53196103/a58df1ba-8fed-4322-bd0a-7ebbd92d1c1c
