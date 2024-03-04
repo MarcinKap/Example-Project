@@ -140,28 +140,28 @@ class MainViewModel @Inject constructor(
     }
 
     private suspend fun downloadProductsByName(productName: String) {
-        productPageUseCase
-            .invoke(ProductPageUseCase.Params(productName, ProductParam.Name))
-            .handle(
-                errorResponse = { networkError ->
-                    _uiState.update {
-                        it.copy(
-                            state = MainState.Error(networkError),
-                        )
-                    }
-                },
-                successResponse = { productPage ->
-                    _uiState.update {
-                        it.copy(
-                            products = productPage.products.map { it.toProductMain() },
-                            selectedCategory = "All",
-                            lastProductsRequest = ProductRequest.Name(productName),
-                        )
-                    }
-                },
-            )
+        if (uiState.value.lastProductsRequest != ProductRequest.Name(productName))
+            productPageUseCase
+                .invoke(ProductPageUseCase.Params(productName, ProductParam.Name))
+                .handle(
+                    errorResponse = { networkError ->
+                        _uiState.update {
+                            it.copy(
+                                state = MainState.Error(networkError),
+                            )
+                        }
+                    },
+                    successResponse = { productPage ->
+                        _uiState.update {
+                            it.copy(
+                                products = productPage.products.map { it.toProductMain() },
+                                selectedCategory = "All",
+                                lastProductsRequest = ProductRequest.Name(productName),
+                            )
+                        }
+                    },
+                )
     }
-
 
     internal fun onBackPressed() {
         val uiState = uiState.value

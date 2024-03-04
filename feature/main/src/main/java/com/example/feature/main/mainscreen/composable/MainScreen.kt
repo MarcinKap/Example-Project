@@ -85,7 +85,7 @@ internal fun MainScreenContent(
         ) { searchingMode ->
             if (searchingMode) {
                 val productsList = if (lastProductRequest !is ProductRequest.Name) {
-                    emptyList<ProductMain>()
+                    emptyList()
                 } else {
                     products
                 }
