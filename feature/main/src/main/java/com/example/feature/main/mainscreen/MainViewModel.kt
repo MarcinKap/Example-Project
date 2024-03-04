@@ -44,6 +44,9 @@ class MainViewModel @Inject constructor(
             val categoriesResponse = categories.await()
 
             _uiState.update { currentState ->
+                val categoriesList = categoriesResponse.orNull()?.toMutableList()
+                categoriesList?.add(0, "All")
+
                 currentState.copy(
                     state = when {
                         productsResponse is Res.Error -> MainState.Error(productsResponse.error()!!)
@@ -52,7 +55,7 @@ class MainViewModel @Inject constructor(
                     },
                     products = productsResponse.map { it.products.map { it.toProductMain() } }.orNull()
                         ?: currentState.products,
-                    categories = categoriesResponse.mapError { it }.orNull() ?: currentState.categories,
+                    categories = categoriesList ?: currentState.categories,
                 )
             }
         }

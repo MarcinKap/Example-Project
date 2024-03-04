@@ -8,6 +8,7 @@ data class MainUiState(
     val isSearchingMode: Boolean = false,
     val products: List<ProductMain> = emptyList(),
     val categories: List<String> = emptyList(),
+    val selectedCategory: String = "All"
 )
 
 sealed class MainState {
