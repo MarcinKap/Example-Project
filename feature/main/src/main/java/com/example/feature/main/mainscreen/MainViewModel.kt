@@ -7,8 +7,8 @@ import com.example.core.networking.model.Res
 import com.example.core.networking.model.error
 import com.example.core.networking.model.orNull
 import com.example.data.product.usecase.CategoriesUseCase
-import com.example.data.product.usecase.ProductPageByCategoryUseCase
 import com.example.data.product.usecase.ProductPageUseCase
+import com.example.data.product.usecase.ProductParam
 import com.example.feature.main.mainscreen.mapper.toProductMain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -23,7 +23,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val productPageUseCase: ProductPageUseCase,
-    private val productPageByCategoryUseCase: ProductPageByCategoryUseCase,
     private val categoriesUseCase: CategoriesUseCase,
     @IO private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
@@ -58,6 +57,7 @@ class MainViewModel @Inject constructor(
                     products = productsResponse.map { it.products.map { it.toProductMain() } }.orNull()
                         ?: currentState.products,
                     categories = categoriesList ?: currentState.categories,
+                    lastProductsRequest = ProductRequest.AllProducts,
                 )
             }
         }
@@ -89,6 +89,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    internal fun onSearchingFieldChange(value: String) {
+        viewModelScope.launch {
+            downloadProductsByName(value)
+        }
+    }
+
     private suspend fun downloadAllProducts() {
         productPageUseCase.invoke().handle(
             errorResponse = { networkError ->
@@ -103,6 +109,7 @@ class MainViewModel @Inject constructor(
                     it.copy(
                         products = productPage.products.map { it.toProductMain() },
                         selectedCategory = "All",
+                        lastProductsRequest = ProductRequest.AllProducts,
                     )
                 }
             },
@@ -110,30 +117,62 @@ class MainViewModel @Inject constructor(
     }
 
     private suspend fun downloadProductsByCategory(category: String) {
-        productPageByCategoryUseCase.invoke(category).handle(
-            errorResponse = { networkError ->
-                _uiState.update {
-                    it.copy(
-                        state = MainState.Error(networkError),
-                    )
-                }
-            },
-            successResponse = { productPage ->
-                _uiState.update {
-                    it.copy(
-                        products = productPage.products.map { it.toProductMain() },
-                        selectedCategory = category,
-                    )
-                }
-            },
-        )
+        productPageUseCase
+            .invoke(ProductPageUseCase.Params(category, ProductParam.Category))
+            .handle(
+                errorResponse = { networkError ->
+                    _uiState.update {
+                        it.copy(
+                            state = MainState.Error(networkError),
+                        )
+                    }
+                },
+                successResponse = { productPage ->
+                    _uiState.update {
+                        it.copy(
+                            products = productPage.products.map { it.toProductMain() },
+                            selectedCategory = category,
+                            lastProductsRequest = ProductRequest.Category(category),
+                        )
+                    }
+                },
+            )
     }
+
+    private suspend fun downloadProductsByName(productName: String) {
+        productPageUseCase
+            .invoke(ProductPageUseCase.Params(productName, ProductParam.Name))
+            .handle(
+                errorResponse = { networkError ->
+                    _uiState.update {
+                        it.copy(
+                            state = MainState.Error(networkError),
+                        )
+                    }
+                },
+                successResponse = { productPage ->
+                    _uiState.update {
+                        it.copy(
+                            products = productPage.products.map { it.toProductMain() },
+                            selectedCategory = "All",
+                            lastProductsRequest = ProductRequest.Name(productName),
+                        )
+                    }
+                },
+            )
+    }
+
 
     internal fun onBackPressed() {
         val uiState = uiState.value
 
         if (uiState.isSearchingMode) {
-            onFocusSearchBar(false)
+            viewModelScope.launch {
+                if (uiState.lastProductsRequest is ProductRequest.Name) {
+                    downloadAllProducts()
+                }
+                onFocusSearchBar(false)
+            }
         } else {
             navigateTo(MainNavigationEvent.Back)
         }

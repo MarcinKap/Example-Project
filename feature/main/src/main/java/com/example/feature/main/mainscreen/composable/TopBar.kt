@@ -33,6 +33,7 @@ import com.example.core.design.theme.ExampleTheme
 internal fun TopBar(
     isSearchingMode: Boolean,
     onFocusSearchBar: (Boolean) -> Unit,
+    onSearchBarValueChange: (String) -> Unit,
     onBackPressed: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
@@ -93,6 +94,7 @@ internal fun TopBar(
                     isSearchBarFocused = it.hasFocus
                 },
             onSearch = {
+                onSearchBarValueChange(it)
                 keyboardController?.hide()
                 focusManager.clearFocus()
             },
@@ -122,6 +124,7 @@ private fun TopBarPreview() {
         TopBar(
             isSearchingMode = true,
             onFocusSearchBar = {},
+            onSearchBarValueChange = {},
             onBackPressed = {},
         )
     }

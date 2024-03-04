@@ -5,6 +5,7 @@ import com.example.core.networking.model.Res
 import com.example.data.product.model.remote.ProductPageResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ProductEndpoint {
     @GET("/products")
@@ -13,6 +14,11 @@ interface ProductEndpoint {
     @GET("/products/category/{category_name}")
     suspend fun getProductsByCategory(
         @Path("category_name") category: String,
+    ): Res<NetworkError, ProductPageResponse>
+
+    @GET("/products/search")
+    suspend fun getProductsByName(
+        @Query("q") name: String,
     ): Res<NetworkError, ProductPageResponse>
 
     @GET("/products/categories")

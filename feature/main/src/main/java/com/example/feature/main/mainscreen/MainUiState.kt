@@ -9,6 +9,7 @@ data class MainUiState(
     val products: List<ProductMain> = emptyList(),
     val categories: List<String> = emptyList(),
     val selectedCategory: String = "All",
+    val lastProductsRequest: ProductRequest = ProductRequest.AllProducts,
 )
 
 sealed class MainState {
@@ -18,4 +19,10 @@ sealed class MainState {
     data class Error(val error: NetworkError) : MainState()
     data object Success : MainState()
     data object Empty : MainState()
+}
+
+sealed class ProductRequest {
+    object AllProducts : ProductRequest()
+    data class Category(val value: String) : ProductRequest()
+    data class Name(val value: String) : ProductRequest()
 }
