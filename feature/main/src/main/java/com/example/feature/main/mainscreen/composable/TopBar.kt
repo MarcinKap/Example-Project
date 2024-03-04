@@ -28,11 +28,13 @@ import com.example.core.design.R
 import com.example.core.design.iconbutton.IconButton
 import com.example.core.design.searchbar.SearchBar
 import com.example.core.design.theme.ExampleTheme
+import kotlinx.coroutines.delay
 
 @Composable
 internal fun TopBar(
     isSearchingMode: Boolean,
     onFocusSearchBar: (Boolean) -> Unit,
+    onSearchBarValueChange: (String) -> Unit,
     onBackPressed: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
@@ -53,6 +55,13 @@ internal fun TopBar(
     LaunchedEffect(key1 = isSearchBarFocused) {
         if (isSearchBarFocused) {
             onFocusSearchBar(true)
+        }
+    }
+
+    LaunchedEffect(key1 = value) {
+        delay(800)
+        if (isSearchBarFocused) {
+            onSearchBarValueChange(value)
         }
     }
 
@@ -93,6 +102,7 @@ internal fun TopBar(
                     isSearchBarFocused = it.hasFocus
                 },
             onSearch = {
+                onSearchBarValueChange(it)
                 keyboardController?.hide()
                 focusManager.clearFocus()
             },
@@ -122,6 +132,7 @@ private fun TopBarPreview() {
         TopBar(
             isSearchingMode = true,
             onFocusSearchBar = {},
+            onSearchBarValueChange = {},
             onBackPressed = {},
         )
     }

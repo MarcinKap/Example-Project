@@ -7,7 +7,22 @@ import com.example.data.product.repository.ProductRepository
 import javax.inject.Inject
 
 class ProductPageUseCase @Inject constructor(private val productRepository: ProductRepository) {
-    suspend fun invoke(): Res<NetworkError, ProductPage> {
-        return productRepository.getProducts()
+
+    data class Params(
+        val value: String,
+        val type: ProductParam,
+    )
+
+    suspend fun invoke(params: Params? = null): Res<NetworkError, ProductPage> {
+        return when (params?.type) {
+            ProductParam.Category -> productRepository.getProductsByCategory(params.value)
+            ProductParam.Name -> productRepository.getProductsByName(params.value)
+            else -> productRepository.getProducts()
+        }
     }
+}
+
+sealed class ProductParam {
+    data object Category : ProductParam()
+    data object Name : ProductParam()
 }

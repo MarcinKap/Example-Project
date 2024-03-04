@@ -19,6 +19,7 @@ import com.example.core.design.theme.Grey95
 import com.example.feature.main.mainscreen.MainNavigationEvent
 import com.example.feature.main.mainscreen.MainNavigator
 import com.example.feature.main.mainscreen.MainViewModel
+import com.example.feature.main.mainscreen.ProductRequest
 import com.example.feature.main.mainscreen.composable.previewData.previewProductList
 import com.example.feature.main.mainscreen.model.ProductMain
 import com.ramcosta.composedestinations.annotation.Destination
@@ -43,7 +44,9 @@ fun MainScreen(
         categories = uiState.categories,
         isSearchingMode = uiState.isSearchingMode,
         selectedCategory = uiState.selectedCategory,
+        lastProductRequest = uiState.lastProductsRequest,
         onFocusSearchBar = viewModel::onFocusSearchBar,
+        onSearchBarValueChange = viewModel::onSearchingFieldChange,
         onCategorySelect = viewModel::onCategorySelect,
         onBackPressed = viewModel::onBackPressed,
     )
@@ -57,7 +60,9 @@ internal fun MainScreenContent(
     products: List<ProductMain>,
     categories: List<String>,
     selectedCategory: String,
+    lastProductRequest: ProductRequest,
     onFocusSearchBar: (Boolean) -> Unit,
+    onSearchBarValueChange: (String) -> Unit,
     onCategorySelect: (String) -> Unit,
     onBackPressed: () -> Unit,
 ) {
@@ -69,12 +74,25 @@ internal fun MainScreenContent(
         TopBar(
             isSearchingMode = isSearchingMode,
             onFocusSearchBar = onFocusSearchBar,
+            onSearchBarValueChange = onSearchBarValueChange,
             onBackPressed = onBackPressed,
         )
 
-        AnimatedContent(isSearchingMode, label = "") { searchingMode ->
+        AnimatedContent(
+            modifier = Modifier.fillMaxSize(),
+            targetState = isSearchingMode,
+            label = "",
+        ) { searchingMode ->
             if (searchingMode) {
-                SearchedProductsLazuColumn()
+                val productsList = if (lastProductRequest !is ProductRequest.Name) {
+                    emptyList()
+                } else {
+                    products
+                }
+
+                SearchedProductsLazuColumn(
+                    products = productsList,
+                )
             } else {
                 MainLazyColumn(
                     products = products,
@@ -96,7 +114,9 @@ private fun MainScreenContentPreview() {
             products = previewProductList,
             categories = listOf("All", "smartphones", "laptops", "fragrances", "skincare", "groceries"),
             selectedCategory = "All",
+            lastProductRequest = ProductRequest.AllProducts,
             onFocusSearchBar = {},
+            onSearchBarValueChange = {},
             onCategorySelect = {},
             onBackPressed = {},
         )

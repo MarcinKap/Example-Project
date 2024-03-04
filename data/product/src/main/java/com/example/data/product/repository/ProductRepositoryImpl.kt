@@ -22,6 +22,12 @@ internal class ProductRepositoryImpl @Inject constructor(
             .map { it.toProductPage() }
     }
 
+    override suspend fun getProductsByName(name: String): Res<NetworkError, ProductPage> {
+        return remoteDataSource
+            .getProductPageByName(name)
+            .map { it.toProductPage() }
+    }
+
     override suspend fun getCategories(): Res<NetworkError, List<String>> {
         return remoteDataSource.getCategories()
     }

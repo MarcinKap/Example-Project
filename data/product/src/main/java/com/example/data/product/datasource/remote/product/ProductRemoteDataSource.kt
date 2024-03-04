@@ -8,5 +8,6 @@ interface ProductRemoteDataSource {
 
     suspend fun getProductPage(): Res<NetworkError, ProductPageResponse>
     suspend fun getProductPageByCategory(category: String): Res<NetworkError, ProductPageResponse>
+    suspend fun getProductPageByName(name: String): Res<NetworkError, ProductPageResponse>
     suspend fun getCategories(): Res<NetworkError, List<String>>
 }
