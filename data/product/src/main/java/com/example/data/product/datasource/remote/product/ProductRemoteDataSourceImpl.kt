@@ -14,6 +14,10 @@ class ProductRemoteDataSourceImpl @Inject constructor(
         return productEndpoint.getAllProducts()
     }
 
+    override suspend fun getProductPageByCategory(category: String): Res<NetworkError, ProductPageResponse> {
+        return productEndpoint.getProductsByCategory(category)
+    }
+
     override suspend fun getCategories(): Res<NetworkError, List<String>> {
         return productEndpoint.getCategories()
     }

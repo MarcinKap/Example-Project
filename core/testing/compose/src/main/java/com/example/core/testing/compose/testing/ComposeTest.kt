@@ -7,4 +7,3 @@ abstract class ComposeTest : ComposeTestRuleProvider {
     @get:Rule(order = 1)
     override val composeTestRule = createComposeRule()
 }
-

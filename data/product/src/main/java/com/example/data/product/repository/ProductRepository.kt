@@ -6,5 +6,6 @@ import com.example.data.product.model.internal.ProductPage
 
 interface ProductRepository {
     suspend fun getProducts(): Res<NetworkError, ProductPage>
+    suspend fun getProductsByCategory(category: String): Res<NetworkError, ProductPage>
     suspend fun getCategories(): Res<NetworkError, List<String>>
 }

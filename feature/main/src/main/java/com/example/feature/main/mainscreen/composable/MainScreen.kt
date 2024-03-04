@@ -3,43 +3,19 @@ package com.example.feature.main.mainscreen.composable
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.core.design.R
-import com.example.core.design.iconbutton.IconButton
-import com.example.core.design.searchbar.SearchBar
 import com.example.core.design.theme.ExampleTheme
-import com.example.core.design.theme.Grey90
 import com.example.core.design.theme.Grey95
-import com.example.core.design.theme.Grey99
 import com.example.feature.main.mainscreen.MainNavigationEvent
 import com.example.feature.main.mainscreen.MainNavigator
 import com.example.feature.main.mainscreen.MainViewModel
@@ -66,7 +42,9 @@ fun MainScreen(
         products = uiState.products,
         categories = uiState.categories,
         isSearchingMode = uiState.isSearchingMode,
+        selectedCategory = uiState.selectedCategory,
         onFocusSearchBar = viewModel::onFocusSearchBar,
+        onCategorySelect = viewModel::onCategorySelect,
         onBackPressed = viewModel::onBackPressed,
     )
 
@@ -78,11 +56,15 @@ internal fun MainScreenContent(
     isSearchingMode: Boolean,
     products: List<ProductMain>,
     categories: List<String>,
+    selectedCategory: String,
     onFocusSearchBar: (Boolean) -> Unit,
+    onCategorySelect: (String) -> Unit,
     onBackPressed: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().background(Grey95),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Grey95),
     ) {
         TopBar(
             isSearchingMode = isSearchingMode,
@@ -97,6 +79,8 @@ internal fun MainScreenContent(
                 MainLazyColumn(
                     products = products,
                     categories = categories,
+                    selectedCategory = selectedCategory,
+                    onCategorySelect = onCategorySelect,
                 )
             }
         }
@@ -111,7 +95,9 @@ private fun MainScreenContentPreview() {
             isSearchingMode = true,
             products = previewProductList,
             categories = listOf("All", "smartphones", "laptops", "fragrances", "skincare", "groceries"),
+            selectedCategory = "All",
             onFocusSearchBar = {},
+            onCategorySelect = {},
             onBackPressed = {},
         )
     }
@@ -142,9 +128,4 @@ private fun MainNavigationHandler(
             MainNavigationEvent.Idle -> {}
         }
     }
-}
-
-@Composable
-private fun BasketButton() {
-
 }

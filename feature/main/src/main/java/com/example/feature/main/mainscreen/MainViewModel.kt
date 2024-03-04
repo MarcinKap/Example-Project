@@ -7,12 +7,12 @@ import com.example.core.networking.model.Res
 import com.example.core.networking.model.error
 import com.example.core.networking.model.orNull
 import com.example.data.product.usecase.CategoriesUseCase
+import com.example.data.product.usecase.ProductPageByCategoryUseCase
 import com.example.data.product.usecase.ProductPageUseCase
 import com.example.feature.main.mainscreen.mapper.toProductMain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val productPageUseCase: ProductPageUseCase,
+    private val productPageByCategoryUseCase: ProductPageByCategoryUseCase,
     private val categoriesUseCase: CategoriesUseCase,
     @IO private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
@@ -38,7 +39,6 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             updateMainState(MainState.Loading)
 
-
             val products = async { productPageUseCase.invoke() }
             val categories = async { categoriesUseCase.invoke() }
 
@@ -46,6 +46,9 @@ class MainViewModel @Inject constructor(
             val categoriesResponse = categories.await()
 
             _uiState.update { currentState ->
+                val categoriesList = categoriesResponse.orNull()?.toMutableList()
+                categoriesList?.add(0, "All")
+
                 currentState.copy(
                     state = when {
                         productsResponse is Res.Error -> MainState.Error(productsResponse.error()!!)
@@ -54,7 +57,7 @@ class MainViewModel @Inject constructor(
                     },
                     products = productsResponse.map { it.products.map { it.toProductMain() } }.orNull()
                         ?: currentState.products,
-                    categories = categoriesResponse.mapError { it }.orNull() ?: currentState.categories,
+                    categories = categoriesList ?: currentState.categories,
                 )
             }
         }
@@ -68,6 +71,62 @@ class MainViewModel @Inject constructor(
         _uiState.update {
             it.copy(isSearchingMode = boolean)
         }
+    }
+
+    internal fun onCategorySelect(category: String) {
+        if (_uiState.value.categories.contains(category)) {
+            viewModelScope.launch {
+                _uiState.update {
+                    it.copy(state = MainState.Reloading)
+                }
+
+                if (category == "All") {
+                    downloadAllProducts()
+                } else {
+                    downloadProductsByCategory(category)
+                }
+            }
+        }
+    }
+
+    private suspend fun downloadAllProducts() {
+        productPageUseCase.invoke().handle(
+            errorResponse = { networkError ->
+                _uiState.update {
+                    it.copy(
+                        state = MainState.Error(networkError),
+                    )
+                }
+            },
+            successResponse = { productPage ->
+                _uiState.update {
+                    it.copy(
+                        products = productPage.products.map { it.toProductMain() },
+                        selectedCategory = "All",
+                    )
+                }
+            },
+        )
+    }
+
+    private suspend fun downloadProductsByCategory(category: String) {
+        productPageByCategoryUseCase.invoke(category).handle(
+            errorResponse = { networkError ->
+                _uiState.update {
+                    it.copy(
+                        state = MainState.Error(networkError),
+                    )
+                }
+            },
+            successResponse = { productPage ->
+                _uiState.update {
+                    it.copy(
+                        products = productPage.products.map { it.toProductMain() },
+                        selectedCategory = category,
+                    )
+                }
+            },
+        )
     }
 
     internal fun onBackPressed() {

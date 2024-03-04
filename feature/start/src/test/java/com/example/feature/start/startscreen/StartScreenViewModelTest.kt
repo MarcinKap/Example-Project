@@ -1,7 +1,6 @@
 package com.example.feature.start.startscreen
 
 import io.kotest.matchers.shouldBe
-import io.mockk.coVerify
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

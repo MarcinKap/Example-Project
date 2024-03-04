@@ -12,7 +12,7 @@ class StartScreenScreenshotTest : PaparazziTest() {
     @Test
     fun StartScreenTest() = test {
         Surface {
-            StartScreenContent{}
+            StartScreenContent {}
         }
     }
 

@@ -1,6 +1,5 @@
 package com.example.core.coroutines
 
-import com.example.core.coroutines.IO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

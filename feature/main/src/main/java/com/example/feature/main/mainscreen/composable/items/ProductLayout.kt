@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -53,44 +54,37 @@ internal fun LazyListScope.productsLayout(products: List<ProductMain>) {
                     .height(IntrinsicSize.Max),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Product(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .background(Color.White, RoundedCornerShape(8.dp))
-                        .padding(8.dp),
-                    product = firstProduct,
-                )
-                Product(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight() .background(Color.White, RoundedCornerShape(8.dp))
-                        .padding(8.dp),
-                    product = secondProduct,
-                )
+                Product(product = firstProduct)
+                Product(product = secondProduct)
             }
         }
     }
 }
 
 @Composable
-private fun Product(
-    product: ProductMain?,
-    modifier: Modifier = Modifier,
-) {
-    Column(modifier = modifier) {
-        ProductImage(url = product?.thumbnail)
-        Spacer(modifier = Modifier.height(4.dp))
-        ProductCategory(value = product?.category)
-        VerticalSpacer(height = 4.dp)
-        ProductTitle(value = product?.title)
-        VerticalSpacer(height = 8.dp)
-        Spacer(modifier = Modifier.weight(1f))
-        ProductSummary(
-            rating = product?.rating,
-            price = product?.price,
-            discountPercentage = product?.discountPercentage,
-        )
+private fun RowScope.Product(product: ProductMain?) {
+    Box(modifier = Modifier.weight(1f)) {
+        product?.let { product ->
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .background(Color.White, RoundedCornerShape(8.dp))
+                    .padding(8.dp),
+            ) {
+                ProductImage(url = product.thumbnail)
+                Spacer(modifier = Modifier.height(4.dp))
+                ProductCategory(value = product.category)
+                VerticalSpacer(height = 4.dp)
+                ProductTitle(value = product.title)
+                VerticalSpacer(height = 8.dp)
+                Spacer(modifier = Modifier.weight(1f))
+                ProductSummary(
+                    rating = product.rating,
+                    price = product.price,
+                    discountPercentage = product.discountPercentage,
+                )
+            }
+        }
     }
 }
 
@@ -105,6 +99,7 @@ private fun ProductImage(url: String?) {
             painter = rememberAsyncImagePainter(
                 model = url,
                 placeholder = painterResource(id = D.drawable.photo_placeholder),
+                contentScale = ContentScale.Crop,
             ),
             contentDescription = null,
             contentScale = ContentScale.Crop,
@@ -158,7 +153,6 @@ private fun ProductSummary(
                         style = MaterialTheme.typography.labelMedium,
                     )
                 }
-
             }
         }
 
@@ -188,8 +182,8 @@ private fun ProductDescription(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
-
         VerticalSpacer(height = 4.dp)
+
         Text(
             text = product.title ?: "",
             style = MaterialTheme.typography.bodyMedium,
@@ -197,8 +191,6 @@ private fun ProductDescription(
         )
 
         VerticalSpacer(height = 8.dp)
-
-
     }
 }
 
